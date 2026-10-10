@@ -1,0 +1,163 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { font-size: 16px; scroll-behavior: smooth; }
+  body { line-height: 1.65; }
+
+  h1, h2, h3 { @apply font-display text-cam; }
+  /* Başlıklarda serif yazı tipi sıkı harf aralığıyla daha oturaklı durur */
+  h1, h2 { letter-spacing: -0.02em; }
+
+  :focus-visible { outline: 2px solid #C4622D; outline-offset: 3px; border-radius: 2px; }
+
+  ::selection { background: #1B2A4A; color: #F7F2EA; }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
+}
+
+@layer components {
+  .site-container { @apply mx-auto max-w-site px-4 sm:px-6; }
+  .genis-container { @apply mx-auto max-w-genis px-4 sm:px-6; }
+
+  /* ---- Düğmeler ---- */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-base font-semibold;
+    @apply transition-all duration-300 ease-yumusak;
+  }
+  .btn-wa { @apply btn bg-[#1E7A52] text-white shadow-kart hover:-translate-y-0.5 hover:bg-[#166342] hover:shadow-kartust; }
+  .btn-cam { @apply btn bg-cam text-fildisi shadow-kart hover:-translate-y-0.5 hover:bg-camderin hover:shadow-kartust; }
+  .btn-altin { @apply btn bg-altin text-white shadow-kart hover:-translate-y-0.5 hover:bg-[#9a7734] hover:shadow-altinhale; }
+  .btn-cerceve { @apply btn border border-cam/25 text-cam hover:-translate-y-0.5 hover:border-cam hover:bg-cam hover:text-fildisi; }
+  /* Koyu zemin üzerinde kullanılan cam görünümlü düğme */
+  .btn-cam-uzeri {
+    @apply btn border border-altinacik/50 bg-fildisi/5 text-altinparlak backdrop-blur-sm;
+    @apply hover:-translate-y-0.5 hover:border-altinacik hover:bg-altinacik hover:text-camgece;
+  }
+
+  /* ---- Etiketler ---- */
+  .etiket { @apply inline-block rounded-full border border-altin/40 bg-altin/10 px-3 py-0.5 text-sm font-semibold text-altin; }
+  .kicker { @apply text-xs font-bold uppercase tracking-kicker text-altin; }
+  .kicker-acik { @apply text-xs font-bold uppercase tracking-kicker text-altinacik; }
+
+  /* Köşeli görsel çerçevesi — dört köşe işaretli */
+  .kemer { border-radius: 2px; overflow: hidden; }
+
+  /* ---- Kartlar ---- */
+  .kart {
+    @apply rounded-2xl border border-cizgi bg-kagit shadow-kart;
+    @apply transition-all duration-500 ease-yumusak;
+  }
+  .kart-etkili { @apply kart hover:-translate-y-1.5 hover:border-altin/35 hover:shadow-kartust; }
+
+  /* ---- Bölüm başlığı ---- */
+  .baslik-cizgi { @apply mx-auto mt-4 h-px w-24 bg-altin-cizgi; }
+
+  /* Program detay kapağı: altta yazı okunur, üstte görsel kalır */
+  .detay-perde {
+    background: linear-gradient(
+      to top,
+      rgba(12, 18, 34, .94) 0%,
+      rgba(12, 18, 34, .72) 26%,
+      rgba(12, 18, 34, .28) 62%,
+      rgba(12, 18, 34, .2) 100%
+    );
+  }
+
+  /* ---- Görsel üzerine yumuşak karartma ---- */
+  .perde { @apply pointer-events-none absolute inset-0 bg-perde-alt; }
+  .perde-kart { @apply pointer-events-none absolute inset-0 bg-perde-kart; }
+
+  /* Slider metninin arkası: fotoğrafın aydınlık ortasında yazı kaybolmasın */
+  .slider-hale {
+    pointer-events: none;
+    position: absolute;
+    left: 50%;
+    top: 42%;
+    width: min(46rem, 148%);
+    height: 155%;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(ellipse at center, rgba(12, 18, 34, .68) 0%, rgba(12, 18, 34, .42) 42%, transparent 72%);
+  }
+  .slider-kicker {
+    color: #EBD9AC;
+    text-shadow: 0 1px 2px rgba(12, 18, 34, .75);
+  }
+  .slider-baslik {
+    color: #F7F4EC;
+    letter-spacing: -0.025em;
+    text-shadow:
+      0 1px 1px rgba(12, 18, 34, .9),
+      0 2px 8px rgba(12, 18, 34, .55),
+      0 18px 36px rgba(12, 18, 34, .4);
+  }
+  .slider-aciklama {
+    color: rgba(247, 244, 236, .96);
+    text-shadow:
+      0 1px 2px rgba(12, 18, 34, .9),
+      0 8px 20px rgba(12, 18, 34, .45);
+  }
+
+  /* ---- Kaydırdıkça belirme ----
+     Gizleme yalnızca <html class="js"> varken uygulanır. JavaScript çalışmazsa
+     hiçbir şey gizlenmez; sayfa bomboş kalmaz. */
+  .belir-bekle {
+    transition: opacity .7s cubic-bezier(.22,.8,.3,1), transform .7s cubic-bezier(.22,.8,.3,1);
+  }
+  .js .belir-bekle { opacity: 0; }
+  .js .belir-alt   { transform: translateY(26px); }
+  .js .belir-sol   { transform: translateX(-26px); }
+  .js .belir-sag   { transform: translateX(26px); }
+  .js .belir-bekle.belirdi { opacity: 1; transform: none; }
+
+  /* ---- İnce doku: koyu bölümlerde düz rengi kırar ---- */
+  .doku::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: .5;
+    background-image:
+      radial-gradient(circle at 12% 0%, rgba(196,98,45,.16), transparent 36%),
+      radial-gradient(circle at 88% 100%, rgba(61,82,120,.45), transparent 46%);
+  }
+
+  /* ---- Yönetim paneli ---- */
+  .yonetim-alan {
+    @apply w-full rounded-xl border border-cizgi bg-white px-3.5 py-2.5 text-sm text-murekkep;
+    @apply transition duration-200 placeholder:text-gri/45;
+  }
+  .yonetim-alan:focus {
+    @apply border-altin outline-none ring-4 ring-altin/15;
+  }
+  .yonetim-alan:focus-visible { outline: none; }
+  .yonetim-etiket { @apply mb-1.5 block text-[0.82rem] font-semibold text-cam; }
+  .yonetim-ipucu { @apply mt-1.5 text-xs leading-relaxed text-gri; }
+  .yonetim-kutu { @apply space-y-5 rounded-2xl border border-cizgi/90 bg-kagit p-5 shadow-kart sm:p-6; }
+  .yonetim-eylem {
+    @apply inline-flex items-center justify-center gap-1.5 rounded-lg border border-cizgi bg-white px-3 py-1.5 text-sm font-medium text-cam;
+    @apply transition-colors duration-200 hover:border-cam/30 hover:bg-fildisi;
+    @apply disabled:cursor-not-allowed disabled:opacity-35;
+  }
+  .yonetim-birincil {
+    @apply inline-flex items-center justify-center gap-1.5 rounded-lg bg-cam px-3.5 py-1.5 text-sm font-semibold text-fildisi;
+    @apply transition-colors duration-200 hover:bg-camderin;
+  }
+  .yonetim-tehlike {
+    @apply inline-flex items-center justify-center gap-1.5 rounded-lg border border-red-200 bg-red-50 px-3 py-1.5 text-sm font-medium text-red-700;
+    @apply transition-colors duration-200 hover:bg-red-100;
+  }
+}
+
+@layer utilities {
+  /* Görsel hover'da yavaşça yakınlaşsın */
+  .gorsel-yakinlas { @apply transition-transform duration-[900ms] ease-yumusak; }
+  .grup-yakinlas:hover .gorsel-yakinlas { @apply scale-105; }
+
+  /* Uzun metinlerde satır uzunluğunu okunur tut */
+  .olcu { max-width: 62ch; }
+}

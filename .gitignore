@@ -1,0 +1,9 @@
+node_modules
+.next
+data/*.db
+public/uploads/*
+!public/uploads/.gitkeep
+.env.local
+data/*.db-*
+.denetle*.mjs
+.DS_Store

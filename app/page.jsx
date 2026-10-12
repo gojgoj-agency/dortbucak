@@ -1,13 +1,25 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, BookOpenText, HeartHandshake, MessagesSquare, Phone } from "lucide-react";
+import {
+  ArrowRight,
+  ArrowUpRight,
+  BookOpenText,
+  Building2,
+  CalendarRange,
+  HeartHandshake,
+  Landmark,
+  MessagesSquare,
+  Phone,
+  ShieldCheck,
+  UsersRound,
+} from "lucide-react";
 import HomeSlider from "@/components/HomeSlider";
 import PackageCard from "@/components/PackageCard";
 import Faq from "@/components/Faq";
 import Reveal, { RevealGrup, RevealOge } from "@/components/Reveal";
 import { getPackages, getSliders } from "@/lib/db";
 import { odaFarki, site, waLink, telLink } from "@/lib/site";
-import { WaIcon } from "@/components/Header";
+import { WaIcon } from "@/components/SocialLinks";
 import JsonLd from "@/components/JsonLd";
 import { abs } from "@/lib/seo";
 
@@ -23,41 +35,11 @@ export const metadata = {
   },
 };
 
-const surec = [
-  ["Bilgi alma", "Telefon veya WhatsApp üzerinden sorularınızı yanıtlıyor, size uygun dönemleri birlikte belirliyoruz."],
-  ["Program seçimi", "Tarih, süre ve konaklama tercihinize göre hac veya umre programınızı seçiyorsunuz."],
-  ["Hazırlık", "Gerekli belgeler, sağlık ve yolculuk hazırlıkları konusunda adım adım bilgilendiriyoruz."],
-  ["Yolculuk", "Rehberlerimiz eşliğinde ibadetlerinizi huzurla yerine getiriyorsunuz."],
-];
-
-const nedenler = [
-  [HeartHandshake, "Rehberli programlar", "Yolculuk boyunca din görevlisi ve rehber eşliğinde hareket edilir; ibadetler bilerek ve huzurla yapılır."],
-  [BookOpenText, "Açık ve dürüst bilgilendirme", "Dahil olan ve olmayan hizmetleri açıkça yazarız; sorularınızı kayıttan önce yanıtlarız."],
-  [MessagesSquare, "Kolay ulaşılabilir ekip", "Telefon ve WhatsApp üzerinden bize her aşamada kolayca ulaşabilirsiniz."],
-];
-
-const kategoriler = [
-  {
-    href: "/hac-turlari",
-    baslik: "Hac Turları",
-    metin: "Hac programlarımızı, tarihlerini ve konaklama planlarını inceleyin.",
-    gorsel: "/images/paket-hac-1.webp",
-    alt: "Mekke ve Medine hac programı",
-  },
-  {
-    href: "/umre-turlari",
-    baslik: "Umre Turları",
-    metin: "Yıl boyu düzenlenen umre programlarımıza göz atın.",
-    gorsel: "/images/paket-umre-2.webp",
-    alt: "Mekke ve Medine umre programı",
-  },
-];
-
 const guvenceler = [
-  ["Rehber eşliğinde", "Din görevlisi ve rehberle birlikte hareket"],
-  ["Mekke & Medine", "Her programda iki kutsal şehir"],
-  ["14 günlük umre", "4 kişilik odada ilan edilen kişi başı fiyat"],
-  ["Ankara ofisi", "Keçiören Subayevleri’nden kolay ulaşım"],
+  [UsersRound, "Rehber eşliğinde", "Din görevlisi ve rehberle birlikte"],
+  [Landmark, "Mekke & Medine", "Her programda iki kutsal şehir"],
+  [CalendarRange, "14 günlük umre", "Yıl boyu farklı dönemler"],
+  [Building2, "Ankara ofisi", "Keçiören’de yüz yüze görüşme"],
 ];
 
 const donemler = [
@@ -67,22 +49,65 @@ const donemler = [
   { ad: "Tam Ramazan", fiyat: "1.900", href: "/paket/tam-ramazan-umresi", ramazan: true },
 ];
 
+const kategoriler = [
+  {
+    href: "/hac-turlari",
+    kicker: "Ömürde bir kez",
+    baslik: "Hac Turları",
+    metin: "Hac programlarımızı, tarihlerini ve Mekke–Medine konaklama planlarını inceleyin.",
+    gorsel: "/images/paket-hac-1.webp",
+    alt: "Mekke ve Medine hac programı",
+  },
+  {
+    href: "/umre-turlari",
+    kicker: "Yıl boyu",
+    baslik: "Umre Turları",
+    metin: "14 günlük, rehberli umre programlarımıza ve dönem fiyatlarına göz atın.",
+    gorsel: "/images/paket-umre-2.webp",
+    alt: "Mekke ve Medine umre programı",
+  },
+];
+
+const nedenler = [
+  [HeartHandshake, "Rehberli programlar", "Yolculuk boyunca din görevlisi ve rehber eşliğinde hareket edilir; ibadetler bilerek ve huzurla yapılır."],
+  [BookOpenText, "Açık ve dürüst bilgilendirme", "Dahil olan ve olmayan hizmetleri açıkça yazarız; sorularınızı kayıttan önce yanıtlarız."],
+  [MessagesSquare, "Kolay ulaşılabilir ekip", "Telefon ve WhatsApp üzerinden bize her aşamada kolayca ulaşabilirsiniz."],
+  [ShieldCheck, "Şeffaf fiyatlandırma", "Oda tipine göre kişi başı fiyatları ve oda farklarını baştan paylaşırız."],
+];
+
+const surec = [
+  ["Bilgi alma", "Telefon veya WhatsApp üzerinden sorularınızı yanıtlıyor, size uygun dönemleri birlikte belirliyoruz."],
+  ["Program seçimi", "Tarih, süre ve konaklama tercihinize göre hac veya umre programınızı seçiyorsunuz."],
+  ["Hazırlık", "Gerekli belgeler, sağlık ve yolculuk hazırlıkları konusunda adım adım bilgilendiriyoruz."],
+  ["Yolculuk", "Rehberlerimiz eşliğinde ibadetlerinizi huzurla yerine getiriyorsunuz."],
+];
+
 const sssSecme = [
   ["Umre programları kaç gün sürüyor?", "İlan edilen umre programlarımız 14 gündür. Çıkış tarihi seçtiğiniz döneme göre değişir."],
   ["3 ve 2 kişilik oda farkı ne kadar?", "İlan edilen fiyat 4 kişilik odada kişi başıdır. 3 ve 2 kişilik odalarda kişi başı 75 dolar, Ramazan umrelerinde 100 dolar eklenir."],
   ["Yolculuk boyunca rehber eşlik ediyor mu?", "Evet, programlarımızda din görevlisi ve rehber eşliğinde hareket edilir; ibadetler topluca yerine getirilir."],
 ];
 
-function BolumBasligi({ kicker, baslik, aciklama, acik = false, id }) {
+function BolumBasligi({ kicker, baslik, vurgu, aciklama, acik = false, id, hizali = "orta" }) {
+  const orta = hizali === "orta";
   return (
-    <Reveal className="text-center">
-      {kicker && <p className={acik ? "kicker-acik" : "kicker"}>{kicker}</p>}
-      <h2 id={id} className={`mt-3 text-2xl md:text-3xl ${acik ? "!text-fildisi" : ""}`}>
+    <Reveal className={orta ? "text-center" : ""}>
+      {kicker && (
+        <p className={`${acik ? "kicker-acik" : "kicker"} ${orta ? "kicker-orta" : ""}`}>{kicker}</p>
+      )}
+      <h2 id={id} className={`baslik-buyuk mt-5 ${acik ? "!text-fildisi" : ""}`}>
         {baslik}
+        {vurgu && (
+          <>
+            {" "}
+            <span className={`italic ${acik ? "altin-yazi" : "text-altin"}`}>{vurgu}</span>
+          </>
+        )}
       </h2>
-      <div className="baslik-cizgi" />
       {aciklama && (
-        <p className={`olcu mx-auto mt-5 ${acik ? "text-fildisi/75" : "text-gri"}`}>{aciklama}</p>
+        <p className={`olcu mt-5 text-[1.05rem] ${orta ? "mx-auto" : ""} ${acik ? "text-fildisi/65" : "text-gri"}`}>
+          {aciklama}
+        </p>
       )}
     </Reveal>
   );
@@ -110,80 +135,186 @@ export default async function Home() {
       {programListesi && <JsonLd data={programListesi} />}
       <HomeSlider slides={sliders} />
 
-      {/* Güvence şeridi — hero'nun üstüne biraz taşarak sayfayı birbirine bağlar */}
-      <section className="site-container relative z-10 -mt-8 md:-mt-14" aria-label="Öne çıkanlar">
+      {/* Güvence şeridi — slider’ın alt kenarına biner */}
+      <section className={`site-container relative z-30 ${sliders.length ? "-mt-24" : "mt-12"}`} aria-label="Öne çıkanlar">
         <Reveal>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {guvenceler.map(([t, d]) => (
-              <div key={t} className="rounded-2xl border border-cizgi bg-kagit px-6 py-7 shadow-kartust">
-                <span className="mb-4 block h-1 w-10 rounded-full bg-altin" aria-hidden />
-                <p className="font-display text-lg text-cam">{t}</p>
-                <p className="mt-1.5 text-sm text-gri">{d}</p>
+          <div className="grid overflow-hidden rounded-[1.5rem] border border-white/10 bg-camderin/90 shadow-derin backdrop-blur-xl sm:grid-cols-2 lg:grid-cols-4">
+            {guvenceler.map(([Ikon, t, d], i) => (
+              <div
+                key={t}
+                className={`group flex items-center gap-4 px-6 py-6 lg:px-7 lg:py-7 ${
+                  i > 0 ? "border-t border-white/[0.07] sm:border-t-0" : ""
+                } ${i % 2 === 1 ? "sm:border-l sm:border-white/[0.07]" : ""} ${
+                  i > 1 ? "sm:border-t sm:border-white/[0.07] lg:border-t-0" : ""
+                } ${i > 0 ? "lg:border-l lg:border-white/[0.07]" : ""}`}
+              >
+                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-altinacik/30 bg-altinacik/[0.08] text-altinacik transition-colors duration-500 group-hover:bg-altinacik group-hover:text-camgece">
+                  <Ikon className="h-5 w-5" aria-hidden />
+                </span>
+                <div>
+                  <p className="font-display text-[1.1rem] text-fildisi">{t}</p>
+                  <p className="mt-0.5 text-sm text-fildisi/55">{d}</p>
+                </div>
               </div>
             ))}
           </div>
         </Reveal>
       </section>
 
-      <section className="mt-20 bg-kagit py-16 md:py-20" aria-labelledby="donem-fiyatlari">
-        <div className="site-container">
-        <BolumBasligi
-          id="donem-fiyatlari"
-          kicker="14 günlük umre"
-          baslik="Dönem fiyatları"
-          aciklama="Tutarlar 4 kişilik odada kişi başıdır. Çıkış tarihi için bize yazın."
-        />
-        <RevealGrup className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4" aralik={0.08}>
-          {donemler.map((d) => (
-            <RevealOge key={d.ad}>
-              <Link
-                href={d.href}
-                className="group flex h-full flex-col rounded-2xl border border-cizgi bg-fildisi p-6 shadow-kart transition-all duration-500 ease-yumusak hover:-translate-y-1 hover:border-altin/40 hover:shadow-kartust"
-              >
-                <p className="text-xs font-bold uppercase tracking-[0.18em] text-altin">
-                  {d.ramazan ? "Ramazan" : "Dönem"}
-                </p>
-                <h3 className="mt-3 text-xl">{d.ad}</h3>
-                <p className="mt-4 font-display text-3xl text-cam">
-                  {d.fiyat}
-                  <span className="ml-1 text-lg">$</span>
-                </p>
-                <p className="mt-1 text-sm text-gri">4 kişilik odada kişi başı</p>
-                <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-altin">
-                  Programı incele
-                  <ArrowRight className="h-4 w-4 transition-transform duration-300 ease-yumusak group-hover:translate-x-1" aria-hidden />
-                </span>
+      {/* Karşılama */}
+      <section className="site-container py-24 md:py-28" aria-labelledby="karsilama">
+        <div className="grid items-center gap-14 lg:grid-cols-12 lg:gap-16">
+          <Reveal yon="sol" className="relative lg:col-span-6">
+            <div className="relative mx-auto max-w-lg lg:mx-0">
+              <div className="relative aspect-[4/5] w-[78%] overflow-hidden rounded-[2rem] shadow-derin">
+                <Image
+                  src="/images/paket-umre-1.webp"
+                  alt="Kutsal topraklardan bir görünüm"
+                  fill
+                  sizes="(max-width: 1024px) 70vw, 420px"
+                  className="object-cover"
+                />
+              </div>
+              <div className="absolute bottom-[-8%] right-0 aspect-square w-[52%] overflow-hidden rounded-[1.75rem] border-[6px] border-fildisi shadow-kartust">
+                <Image
+                  src="/images/paket-hac-2.webp"
+                  alt="Hac programından bir görünüm"
+                  fill
+                  sizes="(max-width: 1024px) 45vw, 260px"
+                  className="object-cover"
+                />
+              </div>
+              <div className="absolute -left-3 top-10 hidden rounded-2xl border border-cizgi bg-kagit/95 px-5 py-4 shadow-kartust backdrop-blur sm:block lg:-left-8">
+                <p className="text-[0.62rem] font-bold uppercase tracking-[0.22em] text-altin">Umre</p>
+                <p className="mt-1 font-display text-2xl leading-none text-cam">14 gün</p>
+                <p className="mt-1 text-xs text-gri">Mekke + Medine</p>
+              </div>
+              <div className="pointer-events-none absolute -right-4 -top-4 h-28 w-28 rounded-full border border-altinacik/40" aria-hidden />
+            </div>
+          </Reveal>
+
+          <Reveal yon="sag" className="lg:col-span-6">
+            <p className="kicker">Dört Bucak Tur</p>
+            <h2 id="karsilama" className="baslik-buyuk mt-5">
+              Kutsal topraklara <span className="italic text-altin">huzurla</span> ve güvenle
+            </h2>
+            <p className="mt-6 text-[1.05rem] leading-relaxed text-gri">
+              Ankara Keçiören’deki ofisimizden hac ve umre yolculuklarınızı planlıyoruz. Programlarımızda
+              din görevlisi ve rehber eşliğinde hareket edilir; ibadetler bilerek, topluca ve usulüne uygun
+              biçimde yerine getirilir.
+            </p>
+            <p className="mt-4 leading-relaxed text-gri">
+              Dahil olan ve olmayan hizmetleri açıkça yazmayı, sorulara net cevap vermeyi ve her aşamada
+              ulaşılabilir olmayı ilke ediniyoruz.
+            </p>
+
+            <ul className="mt-8 grid gap-3 sm:grid-cols-2">
+              {["Rehberli ibadet programı", "Mekke ve Medine konaklama", "Yazılı hizmet bilgilendirmesi", "Kayıt öncesi danışmanlık"].map((m) => (
+                <li key={m} className="flex items-center gap-3 text-[0.95rem] text-cam">
+                  <span className="h-1.5 w-1.5 rotate-45 bg-altin" aria-hidden />
+                  {m}
+                </li>
+              ))}
+            </ul>
+
+            <div className="mt-10 flex flex-wrap items-center gap-6">
+              <Link href="/hakkimizda" className="btn-cam group">
+                Bizi tanıyın
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden />
               </Link>
-            </RevealOge>
-          ))}
-        </RevealGrup>
-        <p className="mx-auto mt-6 max-w-3xl text-center text-sm text-gri">{odaFarki}</p>
+              <a href={telLink()} className="flex items-center gap-3">
+                <span className="flex h-12 w-12 items-center justify-center rounded-full border border-altin/30 text-altin">
+                  <Phone className="h-4 w-4" aria-hidden />
+                </span>
+                <span className="leading-tight">
+                  <span className="block text-[0.62rem] font-bold uppercase tracking-[0.2em] text-gri">Hemen arayın</span>
+                  <span className="block font-display text-lg text-cam">{site.phone}</span>
+                </span>
+              </a>
+            </div>
+          </Reveal>
         </div>
       </section>
 
-      {/* Kategori kartları — artık gerçek fotoğraflarla */}
-      <section className="site-container mt-20" aria-label="Kategoriler">
+      {/* Dönem fiyatları — koyu, lüks bant */}
+      <section className="doku relative overflow-hidden bg-camgece py-24 text-fildisi md:py-28" aria-labelledby="donem-fiyatlari">
+        <div className="desen pointer-events-none absolute inset-0 opacity-80" aria-hidden />
+        <div className="site-container relative">
+          <BolumBasligi
+            id="donem-fiyatlari"
+            kicker="14 günlük umre"
+            baslik="Dönem"
+            vurgu="fiyatları"
+            aciklama="Tutarlar 4 kişilik odada kişi başıdır. Çıkış tarihi ve kontenjan için bize yazın."
+            acik
+          />
+          <RevealGrup className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4" aralik={0.08}>
+            {donemler.map((d) => (
+              <RevealOge key={d.ad} className="h-full">
+                <Link
+                  href={d.href}
+                  className={`group relative flex h-full flex-col overflow-hidden rounded-[1.5rem] border p-7 transition-all duration-500 ease-yumusak hover:-translate-y-1.5 ${
+                    d.ramazan
+                      ? "border-altinacik/40 bg-gradient-to-b from-altinacik/[0.14] to-white/[0.02] shadow-altinhale"
+                      : "border-white/[0.09] bg-white/[0.03] hover:border-altinacik/40"
+                  }`}
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="text-[0.66rem] font-bold uppercase tracking-[0.24em] text-altinacik">
+                      {d.ramazan ? "Ramazan" : "Dönem"}
+                    </span>
+                    {d.ramazan && (
+                      <span className="rounded-full bg-altin-gradyan px-2.5 py-0.5 text-[0.6rem] font-bold uppercase tracking-[0.14em] text-camgece">
+                        Özel
+                      </span>
+                    )}
+                  </div>
+                  <h3 className="mt-5 text-2xl !text-fildisi">{d.ad}</h3>
+                  <p className="mt-6 flex items-start gap-1">
+                    <span className="mt-1.5 font-display text-xl text-altinacik">$</span>
+                    <span className="altin-yazi font-display text-[3rem] leading-none">{d.fiyat}</span>
+                  </p>
+                  <p className="mb-8 mt-2 text-sm text-fildisi/50">4 kişilik odada kişi başı</p>
+                  <span className="mt-auto flex items-center justify-between border-t border-white/[0.08] pt-5 text-sm font-semibold text-fildisi/85">
+                    <span>Programı incele</span>
+                    <span className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 transition-all duration-500 group-hover:rotate-45 group-hover:border-altinacik group-hover:bg-altinacik group-hover:text-camgece">
+                      <ArrowUpRight className="h-4 w-4" aria-hidden />
+                    </span>
+                  </span>
+                </Link>
+              </RevealOge>
+            ))}
+          </RevealGrup>
+          <p className="mx-auto mt-10 max-w-3xl text-center text-sm text-fildisi/50">{odaFarki}</p>
+        </div>
+      </section>
+
+      {/* Kategoriler */}
+      <section className="site-container pt-24 md:pt-28" aria-label="Kategoriler">
         <RevealGrup className="grid gap-6 md:grid-cols-2">
           {kategoriler.map((k) => (
             <RevealOge key={k.href}>
               <Link
                 href={k.href}
-                className="grup-yakinlas group relative flex h-72 items-end overflow-hidden rounded-[1.75rem] shadow-kart ring-1 ring-cam/10 transition-all duration-500 ease-yumusak hover:-translate-y-1.5 hover:shadow-kartust md:h-80"
+                className="grup-yakinlas group relative flex h-[26rem] items-end overflow-hidden rounded-[2rem] shadow-kartust md:h-[30rem]"
               >
                 <Image
                   src={k.gorsel}
                   alt={k.alt}
                   fill
-                  sizes="(max-width: 768px) 92vw, 560px"
+                  sizes="(max-width: 768px) 92vw, 600px"
                   className="gorsel-yakinlas object-cover"
                 />
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-camgece/90 via-camgece/45 to-camgece/10" aria-hidden />
-                <div className="relative w-full p-7">
-                  <h2 className="font-display text-2xl !text-fildisi">{k.baslik}</h2>
-                  <p className="mt-2 max-w-sm text-fildisi/80">{k.metin}</p>
-                  <span className="mt-4 inline-flex items-center gap-2 font-semibold text-altinparlak">
-                    Programları görüntüle
-                    <ArrowRight className="h-4 w-4 transition-transform duration-300 ease-yumusak group-hover:translate-x-1.5" aria-hidden />
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-camgece via-camgece/45 to-transparent" aria-hidden />
+                <div className="pointer-events-none absolute inset-4 rounded-[1.5rem] border border-white/15 transition-colors duration-500 group-hover:border-altinacik/50" aria-hidden />
+                <div className="relative flex w-full items-end justify-between gap-6 p-9 md:p-11">
+                  <div>
+                    <p className="kicker-acik">{k.kicker}</p>
+                    <h2 className="mt-3 text-3xl !text-fildisi md:text-4xl">{k.baslik}</h2>
+                    <p className="mt-3 max-w-sm text-fildisi/75">{k.metin}</p>
+                  </div>
+                  <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-altin-gradyan text-camgece shadow-altinhale transition-transform duration-500 ease-yumusak group-hover:rotate-45">
+                    <ArrowUpRight className="h-6 w-6" aria-hidden />
                   </span>
                 </div>
               </Link>
@@ -192,103 +323,126 @@ export default async function Home() {
         </RevealGrup>
       </section>
 
-      {/* Öne çıkan paketler */}
+      {/* Öne çıkan programlar */}
       {featured.length > 0 && (
-        <section className="site-container mt-24" aria-labelledby="one-cikan">
-          <BolumBasligi
-            id="one-cikan"
-            kicker="Programlarımız"
-            baslik="Öne Çıkan Programlar"
-            aciklama="Tarih, süre ve konaklama planlarıyla hazırladığımız hac ve umre programlarından bir seçki."
-          />
+        <section className="site-container pt-24 md:pt-28" aria-labelledby="one-cikan">
+          <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
+            <BolumBasligi
+              id="one-cikan"
+              kicker="Programlarımız"
+              baslik="Öne çıkan"
+              vurgu="programlar"
+              aciklama="Tarih, süre ve konaklama planlarıyla hazırladığımız hac ve umre programlarından bir seçki."
+              hizali="sol"
+            />
+            <Reveal className="flex shrink-0 gap-3">
+              <Link href="/umre-turlari" className="btn-cerceve !px-5 !py-2.5 text-sm">Umre turları</Link>
+              <Link href="/hac-turlari" className="btn-cerceve !px-5 !py-2.5 text-sm">Hac turları</Link>
+            </Reveal>
+          </div>
           <RevealGrup className="mt-12 grid gap-7 sm:grid-cols-2 lg:grid-cols-3" aralik={0.09}>
             {featured.map((p) => (
               <RevealOge key={p.id} className="flex">
-                <div className="flex w-full">
-                  <PackageCard p={p} />
-                </div>
+                <PackageCard p={p} />
               </RevealOge>
             ))}
           </RevealGrup>
         </section>
       )}
 
-      {/* Neden Dört Bucak Tur */}
-      <section className="doku relative mt-24 overflow-hidden bg-cam py-20 text-fildisi" aria-labelledby="neden">
-        <div className="site-container relative">
-          <BolumBasligi id="neden" kicker="Yaklaşımımız" baslik="Neden Dört Bucak Tur?" acik />
-          <RevealGrup className="mt-12 grid gap-6 md:grid-cols-3">
-            {nedenler.map(([Ikon, t, d]) => (
-              <RevealOge key={t}>
-                <div className="h-full rounded-2xl border border-fildisi/10 bg-fildisi/[0.04] p-7 backdrop-blur-sm transition-colors duration-500 ease-yumusak hover:border-altinacik/35 hover:bg-fildisi/[0.07]">
-                  <span className="flex h-12 w-12 items-center justify-center rounded-2xl border border-altinacik/30 bg-altinacik/10 text-altinparlak">
-                    <Ikon className="h-6 w-6" aria-hidden />
-                  </span>
-                  <h3 className="mt-5 text-xl !text-altinacik">{t}</h3>
-                  <p className="mt-2 text-fildisi/80">{d}</p>
-                </div>
-              </RevealOge>
-            ))}
-          </RevealGrup>
+      {/* Neden biz */}
+      <section className="pt-24 md:pt-28" aria-labelledby="neden">
+        <div className="site-container">
+          <div className="desen-acik relative overflow-hidden rounded-[2rem] border border-cizgi bg-kagit px-6 py-16 shadow-kart sm:px-10 md:px-14 md:py-20">
+            <div className="grid gap-12 lg:grid-cols-12">
+              <div className="lg:col-span-4">
+                <BolumBasligi
+                  id="neden"
+                  kicker="Yaklaşımımız"
+                  baslik="Neden"
+                  vurgu="Dört Bucak?"
+                  aciklama="Kutsal bir yolculukta en önemli şey güvendir. Her adımı açık, düzenli ve ulaşılabilir biçimde planlarız."
+                  hizali="sol"
+                />
+              </div>
+              <RevealGrup className="grid gap-5 sm:grid-cols-2 lg:col-span-8" aralik={0.08}>
+                {nedenler.map(([Ikon, t, d], i) => (
+                  <RevealOge key={t} className="h-full">
+                    <div className="group h-full rounded-[1.25rem] border border-cizgi bg-fildisi/60 p-7 transition-all duration-500 ease-yumusak hover:-translate-y-1 hover:border-altinacik/50 hover:bg-kagit hover:shadow-kartust">
+                      <div className="flex items-center justify-between">
+                        <span className="flex h-12 w-12 items-center justify-center rounded-full bg-cam text-altinparlak transition-colors duration-500 group-hover:bg-altin-gradyan group-hover:text-camgece">
+                          <Ikon className="h-5 w-5" aria-hidden />
+                        </span>
+                        <span className="font-display text-3xl text-cizgi">{String(i + 1).padStart(2, "0")}</span>
+                      </div>
+                      <h3 className="mt-6 text-xl">{t}</h3>
+                      <p className="mt-2 text-[0.95rem] text-gri">{d}</p>
+                    </div>
+                  </RevealOge>
+                ))}
+              </RevealGrup>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* Yolculuk süreci */}
-      <section className="site-container mt-24" aria-labelledby="surec">
+      <section className="site-container pt-24 md:pt-28" aria-labelledby="surec">
         <BolumBasligi
           id="surec"
           kicker="Adım adım"
-          baslik="Yolculuk Süreci"
+          baslik="Yolculuk"
+          vurgu="süreci"
           aciklama="İlk telefondan dönüş gününe kadar izlediğimiz yol."
         />
-        <RevealGrup className="relative mt-12 grid gap-6 md:grid-cols-4" aralik={0.1}>
-          {/* Adımları birbirine bağlayan ince çizgi */}
+        <RevealGrup className="relative mt-16 grid gap-10 md:grid-cols-4 md:gap-6" aralik={0.1}>
           <div
-            className="pointer-events-none absolute left-0 right-0 top-[3.25rem] hidden h-px bg-gradient-to-r from-transparent via-cizgi to-transparent md:block"
+            className="pointer-events-none absolute left-[12.5%] right-[12.5%] top-8 hidden h-px bg-gradient-to-r from-altinacik/0 via-altinacik/60 to-altinacik/0 md:block"
             aria-hidden
           />
           {surec.map(([t, d], i) => (
             <RevealOge key={t}>
-              <div className="relative h-full rounded-2xl border border-cizgi bg-kagit p-6 shadow-kart transition-all duration-500 ease-yumusak hover:-translate-y-1.5 hover:border-altin/30 hover:shadow-kartust">
-                <span className="flex h-11 w-11 items-center justify-center rounded-full bg-cam font-display text-lg text-altinparlak shadow-kart">
-                  {i + 1}
+              <div className="relative text-center">
+                <span className="relative mx-auto flex h-16 w-16 items-center justify-center rounded-full border border-altinacik/50 bg-fildisi font-display text-xl text-altin shadow-kart">
+                  <span className="absolute inset-1.5 rounded-full bg-cam" aria-hidden />
+                  <span className="relative text-altinparlak">{i + 1}</span>
                 </span>
-                <h3 className="mt-4 text-xl">{t}</h3>
-                <p className="mt-1.5 text-gri">{d}</p>
+                <h3 className="mt-6 text-xl">{t}</h3>
+                <p className="mx-auto mt-2 max-w-[16rem] text-[0.95rem] text-gri">{d}</p>
               </div>
             </RevealOge>
           ))}
         </RevealGrup>
       </section>
 
-      {/* Kısa bilgilendirme + SSS */}
-      <section className="site-container mt-24 grid gap-7 md:grid-cols-2" aria-labelledby="bilgi">
-        <Reveal yon="sol">
-          <div className="kart h-full p-8">
-            <p className="kicker">Bilgilendirme</p>
-            <h2 id="bilgi" className="mt-3 text-2xl">Hac ve Umre Hakkında</h2>
-            <p className="mt-4 text-gri">
-              Hac, İslam'ın beş şartından biridir ve yılın belirli günlerinde, hac mevsiminde yerine
-              getirilir. Umre ise yıl boyunca yapılabilen, Kâbe'yi tavaf ve sa'y ibadetlerini içeren
-              bir ziyarettir.
-            </p>
-            <p className="mt-3 text-gri">
-              Her iki yolculukta da hazırlık, belgeler ve ibadetlerin yapılışı hakkında ekibimiz size
-              adım adım eşlik eder. Vize, pasaport, aşı ve resmî seyahat şartları zaman içinde
-              değişebilir; güncel bilgiler kayıt sırasında paylaşılır.
-            </p>
+      {/* Bilgilendirme + SSS */}
+      <section className="site-container grid gap-7 pt-24 md:pt-28 lg:grid-cols-12" aria-labelledby="bilgi">
+        <Reveal yon="sol" className="lg:col-span-5">
+          <div className="relative h-full overflow-hidden rounded-[1.75rem] bg-cam p-9 text-fildisi shadow-derin md:p-10">
+            <div className="desen pointer-events-none absolute inset-0 opacity-70" aria-hidden />
+            <div className="relative">
+              <p className="kicker-acik">Bilgilendirme</p>
+              <h2 id="bilgi" className="mt-4 text-3xl !text-fildisi">Hac ve Umre Hakkında</h2>
+              <p className="mt-5 leading-relaxed text-fildisi/70">
+                Hac, İslam&apos;ın beş şartından biridir ve yılın belirli günlerinde, hac mevsiminde yerine
+                getirilir. Umre ise yıl boyunca yapılabilen, Kâbe&apos;yi tavaf ve sa&apos;y ibadetlerini içeren
+                bir ziyarettir.
+              </p>
+              <p className="mt-4 leading-relaxed text-fildisi/70">
+                Her iki yolculukta da hazırlık, belgeler ve ibadetlerin yapılışı hakkında ekibimiz size
+                adım adım eşlik eder. Vize, pasaport, aşı ve resmî seyahat şartları zaman içinde
+                değişebilir; güncel bilgiler kayıt sırasında paylaşılır.
+              </p>
+            </div>
           </div>
         </Reveal>
 
-        <Reveal yon="sag">
-          <div className="kart h-full p-8">
+        <Reveal yon="sag" className="lg:col-span-7">
+          <div className="h-full">
             <p className="kicker">Merak edilenler</p>
-            <h2 className="mt-3 text-2xl">Sık Sorulanlardan</h2>
-            <div className="mt-5"><Faq items={sssSecme} /></div>
-            <Link
-              href="/sss"
-              className="group mt-5 inline-flex items-center gap-2 font-semibold text-altin hover:underline"
-            >
+            <h2 className="mt-4 text-3xl">Sık sorulanlardan</h2>
+            <div className="mt-7"><Faq items={sssSecme} /></div>
+            <Link href="/sss" className="group mt-6 inline-flex items-center gap-2 font-semibold text-altin">
               Tüm soruları görüntüle
               <ArrowRight className="h-4 w-4 transition-transform duration-300 ease-yumusak group-hover:translate-x-1.5" aria-hidden />
             </Link>
@@ -297,38 +451,38 @@ export default async function Home() {
       </section>
 
       {/* İletişim çağrısı */}
-      <section className="site-container mt-24" aria-labelledby="cagri">
+      <section className="site-container pt-24 md:pt-28" aria-labelledby="cagri">
         <Reveal>
-          <div className="doku relative overflow-hidden rounded-[1.75rem] bg-camderin px-7 py-16 text-center text-fildisi shadow-derin ring-1 ring-altinacik/20">
-            <div className="relative">
-              <p className="kicker-acik">İletişim</p>
-              <h2 id="cagri" className="mt-3 text-2xl !text-fildisi md:text-3xl">
-                Size nasıl yardımcı olabiliriz?
-              </h2>
-              <div className="baslik-cizgi" />
-              <p className="olcu mx-auto mt-5 text-fildisi/80">
-                Program tarihleri, fiyatlar ve kayıt şartları hakkında bilgi almak için bize ulaşın.
-              </p>
-              <div className="mt-8 flex flex-wrap justify-center gap-3">
-                <a
-                  href={waLink("Merhaba, hac ve umre programlarınız hakkında bilgi almak istiyorum.")}
-                  target="_blank"
-                  rel="noopener"
-                  className="btn-wa"
-                >
-                  <WaIcon /> WhatsApp'tan Bilgi Al
-                </a>
-                <a href={telLink()} className="btn-cam-uzeri">
-                  <Phone className="h-4 w-4" aria-hidden /> {site.phone}
-                </a>
-              </div>
-              <p className="mt-8 text-sm text-fildisi/65">
-                {site.address} ·{" "}
-                <Link href="/iletisim" className="underline underline-offset-4 hover:text-altinacik">
-                  Adres ve harita için iletişim sayfası
-                </Link>
-              </p>
+          <div className="relative isolate overflow-hidden rounded-[2rem] bg-camgece px-7 py-20 text-center text-fildisi shadow-derin md:py-24">
+            <Image src="/images/slider-2-masaustu.webp" alt="" fill sizes="(max-width: 1280px) 100vw, 1200px" className="-z-10 object-cover opacity-35" />
+            <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-camgece/60 via-camgece/80 to-camgece" aria-hidden />
+            <div className="pointer-events-none absolute inset-4 rounded-[1.5rem] border border-altinacik/20" aria-hidden />
+            <p className="kicker-acik kicker-orta">İletişim</p>
+            <h2 id="cagri" className="baslik-buyuk mx-auto mt-5 max-w-2xl !text-fildisi">
+              Size nasıl <span className="altin-yazi italic">yardımcı</span> olabiliriz?
+            </h2>
+            <p className="olcu mx-auto mt-5 text-fildisi/70">
+              Program tarihleri, fiyatlar ve kayıt şartları hakkında bilgi almak için bize ulaşın.
+            </p>
+            <div className="mt-10 flex flex-wrap justify-center gap-3">
+              <a
+                href={waLink("Merhaba, hac ve umre programlarınız hakkında bilgi almak istiyorum.")}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-altin"
+              >
+                <WaIcon /> WhatsApp&apos;tan Bilgi Al
+              </a>
+              <a href={telLink()} className="btn-cam-uzeri">
+                <Phone className="h-4 w-4" aria-hidden /> {site.phone}
+              </a>
             </div>
+            <p className="mt-8 text-sm text-fildisi/50">
+              {site.address} ·{" "}
+              <Link href="/iletisim" className="underline decoration-altinacik/40 underline-offset-4 hover:text-altinparlak">
+                Adres ve harita
+              </Link>
+            </p>
           </div>
         </Reveal>
       </section>

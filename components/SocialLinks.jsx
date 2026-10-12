@@ -45,9 +45,9 @@ const items = [
 ];
 
 const tones = {
-  bar: "inline-flex h-7 w-7 items-center justify-center rounded-full text-fildisi/85 transition-colors hover:bg-fildisi/10 hover:text-altinacik",
-  footer: "inline-flex h-9 w-9 items-center justify-center rounded-full border border-fildisi/15 bg-fildisi/[0.04] text-fildisi transition-colors hover:border-altinacik hover:bg-altinacik hover:text-camderin",
-  light: "inline-flex h-9 w-9 items-center justify-center rounded-full border border-cizgi bg-kagit text-cam transition-colors hover:border-cam hover:bg-cam hover:text-fildisi",
+  bar: "inline-flex h-7 w-7 items-center justify-center rounded-full text-fildisi/70 transition-colors hover:bg-white/10 hover:text-altinparlak",
+  footer: "inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/[0.03] text-fildisi/85 transition-all duration-300 hover:-translate-y-0.5 hover:border-altinacik hover:bg-altinacik hover:text-camgece",
+  light: "inline-flex h-10 w-10 items-center justify-center rounded-full border border-cizgi bg-kagit text-cam transition-all duration-300 hover:-translate-y-0.5 hover:border-cam hover:bg-cam hover:text-altinparlak",
 };
 
 export default function SocialLinks({ tone = "footer", className = "" }) {

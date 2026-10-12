@@ -4,15 +4,14 @@
 
 @layer base {
   html { font-size: 16px; scroll-behavior: smooth; }
-  body { line-height: 1.65; }
+  body { line-height: 1.7; }
 
   h1, h2, h3 { @apply font-display text-cam; }
-  /* Başlıklarda serif yazı tipi sıkı harf aralığıyla daha oturaklı durur */
   h1, h2 { letter-spacing: -0.02em; }
 
-  :focus-visible { outline: 2px solid #C4622D; outline-offset: 3px; border-radius: 2px; }
+  :focus-visible { outline: 2px solid #C9A86C; outline-offset: 3px; border-radius: 4px; }
 
-  ::selection { background: #1B2A4A; color: #F7F2EA; }
+  ::selection { background: #0F1B33; color: #EEDFC0; }
 
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
@@ -21,97 +20,92 @@
 }
 
 @layer components {
-  .site-container { @apply mx-auto max-w-site px-4 sm:px-6; }
-  .genis-container { @apply mx-auto max-w-genis px-4 sm:px-6; }
+  .site-container { @apply mx-auto max-w-site px-5 sm:px-6 lg:px-8; }
+  .genis-container { @apply mx-auto max-w-genis px-5 sm:px-6 lg:px-8; }
 
   /* ---- Düğmeler ---- */
   .btn {
-    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-base font-semibold;
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-[0.95rem] font-semibold tracking-wide;
     @apply transition-all duration-300 ease-yumusak;
   }
-  .btn-wa { @apply btn bg-[#1E7A52] text-white shadow-kart hover:-translate-y-0.5 hover:bg-[#166342] hover:shadow-kartust; }
+  .btn-altin {
+    @apply btn bg-altin-gradyan text-camgece shadow-altinhale;
+    @apply hover:-translate-y-0.5 hover:brightness-105 hover:shadow-[0_0_0_1px_rgba(238,223,192,.7),0_22px_44px_-18px_rgba(156,122,67,.75)];
+  }
+  .btn-wa { @apply btn bg-[#1D7550] text-white shadow-kart hover:-translate-y-0.5 hover:bg-[#165E40] hover:shadow-kartust; }
   .btn-cam { @apply btn bg-cam text-fildisi shadow-kart hover:-translate-y-0.5 hover:bg-camderin hover:shadow-kartust; }
-  .btn-altin { @apply btn bg-altin text-white shadow-kart hover:-translate-y-0.5 hover:bg-[#9a7734] hover:shadow-altinhale; }
-  .btn-cerceve { @apply btn border border-cam/25 text-cam hover:-translate-y-0.5 hover:border-cam hover:bg-cam hover:text-fildisi; }
+  .btn-cerceve { @apply btn border border-cam/20 text-cam hover:-translate-y-0.5 hover:border-cam hover:bg-cam hover:text-fildisi; }
   /* Koyu zemin üzerinde kullanılan cam görünümlü düğme */
   .btn-cam-uzeri {
-    @apply btn border border-altinacik/50 bg-fildisi/5 text-altinparlak backdrop-blur-sm;
+    @apply btn border border-altinacik/45 bg-white/[0.04] text-altinparlak backdrop-blur-md;
     @apply hover:-translate-y-0.5 hover:border-altinacik hover:bg-altinacik hover:text-camgece;
   }
 
   /* ---- Etiketler ---- */
-  .etiket { @apply inline-block rounded-full border border-altin/40 bg-altin/10 px-3 py-0.5 text-sm font-semibold text-altin; }
-  .kicker { @apply text-xs font-bold uppercase tracking-kicker text-altin; }
-  .kicker-acik { @apply text-xs font-bold uppercase tracking-kicker text-altinacik; }
+  .etiket { @apply inline-flex items-center rounded-full border border-altin/30 bg-altin/[0.08] px-3 py-0.5 text-[0.78rem] font-semibold uppercase tracking-[0.12em] text-altin; }
+  .kicker { @apply inline-flex items-center gap-3 text-[0.7rem] font-bold uppercase tracking-kicker text-altin; }
+  .kicker-acik { @apply inline-flex items-center gap-3 text-[0.7rem] font-bold uppercase tracking-kicker text-altinacik; }
+  .kicker::before, .kicker-acik::before { content: ""; @apply h-px w-8 bg-current opacity-70; }
+  .kicker-orta::after { content: ""; @apply h-px w-8 bg-current opacity-70; }
 
-  /* Köşeli görsel çerçevesi — dört köşe işaretli */
-  .kemer { border-radius: 2px; overflow: hidden; }
+  .kemer { border-radius: 1rem; overflow: hidden; }
 
   /* ---- Kartlar ---- */
   .kart {
-    @apply rounded-2xl border border-cizgi bg-kagit shadow-kart;
+    @apply rounded-[1.25rem] border border-cizgi bg-kagit shadow-kart;
     @apply transition-all duration-500 ease-yumusak;
   }
-  .kart-etkili { @apply kart hover:-translate-y-1.5 hover:border-altin/35 hover:shadow-kartust; }
+  .kart-etkili { @apply kart hover:-translate-y-1.5 hover:border-altinacik/60 hover:shadow-kartust; }
+
+  /* Koyu zeminde ince altın çerçeveli cam kart */
+  .kart-koyu {
+    @apply rounded-[1.25rem] border border-white/[0.08] bg-white/[0.03] shadow-lux backdrop-blur-sm;
+    @apply transition-all duration-500 ease-yumusak;
+  }
 
   /* ---- Bölüm başlığı ---- */
-  .baslik-cizgi { @apply mx-auto mt-4 h-px w-24 bg-altin-cizgi; }
+  .baslik-cizgi { @apply mx-auto mt-5 h-px w-24 bg-altin-cizgi; }
+  .baslik-buyuk { @apply text-[2rem] leading-[1.15] sm:text-[2.4rem] lg:text-[2.85rem]; }
 
-  /* Program detay kapağı: altta yazı okunur, üstte görsel kalır */
   .detay-perde {
     background: linear-gradient(
       to top,
-      rgba(12, 18, 34, .94) 0%,
-      rgba(12, 18, 34, .72) 26%,
-      rgba(12, 18, 34, .28) 62%,
-      rgba(12, 18, 34, .2) 100%
+      rgba(7, 13, 27, .95) 0%,
+      rgba(7, 13, 27, .74) 28%,
+      rgba(7, 13, 27, .32) 62%,
+      rgba(7, 13, 27, .35) 100%
     );
   }
 
-  /* ---- Görsel üzerine yumuşak karartma ---- */
   .perde { @apply pointer-events-none absolute inset-0 bg-perde-alt; }
   .perde-kart { @apply pointer-events-none absolute inset-0 bg-perde-kart; }
 
-  /* Slider metninin arkası: fotoğrafın aydınlık ortasında yazı kaybolmasın */
-  .slider-hale {
-    pointer-events: none;
-    position: absolute;
-    left: 50%;
-    top: 42%;
-    width: min(46rem, 148%);
-    height: 155%;
-    transform: translate(-50%, -50%);
-    background: radial-gradient(ellipse at center, rgba(12, 18, 34, .68) 0%, rgba(12, 18, 34, .42) 42%, transparent 72%);
-  }
-  .slider-kicker {
-    color: #EBD9AC;
-    text-shadow: 0 1px 2px rgba(12, 18, 34, .75);
-  }
+  .slider-kicker { color: #E7D3A8; text-shadow: 0 1px 2px rgba(7, 13, 27, .7); }
   .slider-baslik {
-    color: #F7F4EC;
+    color: #FBF7EF;
     letter-spacing: -0.025em;
-    text-shadow:
-      0 1px 1px rgba(12, 18, 34, .9),
-      0 2px 8px rgba(12, 18, 34, .55),
-      0 18px 36px rgba(12, 18, 34, .4);
+    text-shadow: 0 2px 10px rgba(7, 13, 27, .45), 0 20px 40px rgba(7, 13, 27, .35);
   }
-  .slider-aciklama {
-    color: rgba(247, 244, 236, .96);
-    text-shadow:
-      0 1px 2px rgba(12, 18, 34, .9),
-      0 8px 20px rgba(12, 18, 34, .45);
+  .slider-aciklama { color: rgba(247, 243, 236, .9); text-shadow: 0 1px 2px rgba(7, 13, 27, .8); }
+
+  /* Altın parıltılı yazı */
+  .altin-yazi {
+    background: linear-gradient(100deg, #EEDFC0 0%, #D2B582 40%, #F4E8CF 55%, #C9A86C 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
   }
 
   /* ---- Kaydırdıkça belirme ----
      Gizleme yalnızca <html class="js"> varken uygulanır. JavaScript çalışmazsa
      hiçbir şey gizlenmez; sayfa bomboş kalmaz. */
   .belir-bekle {
-    transition: opacity .7s cubic-bezier(.22,.8,.3,1), transform .7s cubic-bezier(.22,.8,.3,1);
+    transition: opacity .8s cubic-bezier(.22,.8,.3,1), transform .8s cubic-bezier(.22,.8,.3,1);
   }
   .js .belir-bekle { opacity: 0; }
-  .js .belir-alt   { transform: translateY(26px); }
-  .js .belir-sol   { transform: translateX(-26px); }
-  .js .belir-sag   { transform: translateX(26px); }
+  .js .belir-alt   { transform: translateY(28px); }
+  .js .belir-sol   { transform: translateX(-28px); }
+  .js .belir-sag   { transform: translateX(28px); }
   .js .belir-bekle.belirdi { opacity: 1; transform: none; }
 
   /* ---- İnce doku: koyu bölümlerde düz rengi kırar ---- */
@@ -120,44 +114,23 @@
     position: absolute;
     inset: 0;
     pointer-events: none;
-    opacity: .5;
     background-image:
-      radial-gradient(circle at 12% 0%, rgba(196,98,45,.16), transparent 36%),
-      radial-gradient(circle at 88% 100%, rgba(61,82,120,.45), transparent 46%);
+      radial-gradient(circle at 10% 0%, rgba(210,181,130,.16), transparent 38%),
+      radial-gradient(circle at 90% 100%, rgba(43,60,95,.55), transparent 50%);
   }
 
-  /* ---- Yönetim paneli ---- */
-  .yonetim-alan {
-    @apply w-full rounded-xl border border-cizgi bg-white px-3.5 py-2.5 text-sm text-murekkep;
-    @apply transition duration-200 placeholder:text-gri/45;
+  /* İslami geometrik desen — koyu bölümlerde çok hafif */
+  .desen {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Cg fill='none' stroke='%23D2B582' stroke-opacity='.09' stroke-width='1'%3E%3Cpath d='M32 4l8 20 20 8-20 8-8 20-8-20-20-8 20-8z'/%3E%3Cpath d='M12 12h40v40H12z' transform='rotate(45 32 32)'/%3E%3C/g%3E%3C/svg%3E");
   }
-  .yonetim-alan:focus {
-    @apply border-altin outline-none ring-4 ring-altin/15;
-  }
-  .yonetim-alan:focus-visible { outline: none; }
-  .yonetim-etiket { @apply mb-1.5 block text-[0.82rem] font-semibold text-cam; }
-  .yonetim-ipucu { @apply mt-1.5 text-xs leading-relaxed text-gri; }
-  .yonetim-kutu { @apply space-y-5 rounded-2xl border border-cizgi/90 bg-kagit p-5 shadow-kart sm:p-6; }
-  .yonetim-eylem {
-    @apply inline-flex items-center justify-center gap-1.5 rounded-lg border border-cizgi bg-white px-3 py-1.5 text-sm font-medium text-cam;
-    @apply transition-colors duration-200 hover:border-cam/30 hover:bg-fildisi;
-    @apply disabled:cursor-not-allowed disabled:opacity-35;
-  }
-  .yonetim-birincil {
-    @apply inline-flex items-center justify-center gap-1.5 rounded-lg bg-cam px-3.5 py-1.5 text-sm font-semibold text-fildisi;
-    @apply transition-colors duration-200 hover:bg-camderin;
-  }
-  .yonetim-tehlike {
-    @apply inline-flex items-center justify-center gap-1.5 rounded-lg border border-red-200 bg-red-50 px-3 py-1.5 text-sm font-medium text-red-700;
-    @apply transition-colors duration-200 hover:bg-red-100;
+  .desen-acik {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Cg fill='none' stroke='%239C7A43' stroke-opacity='.07' stroke-width='1'%3E%3Cpath d='M32 4l8 20 20 8-20 8-8 20-8-20-20-8 20-8z'/%3E%3Cpath d='M12 12h40v40H12z' transform='rotate(45 32 32)'/%3E%3C/g%3E%3C/svg%3E");
   }
 }
 
 @layer utilities {
-  /* Görsel hover'da yavaşça yakınlaşsın */
-  .gorsel-yakinlas { @apply transition-transform duration-[900ms] ease-yumusak; }
-  .grup-yakinlas:hover .gorsel-yakinlas { @apply scale-105; }
+  .gorsel-yakinlas { @apply transition-transform duration-[1200ms] ease-yumusak; }
+  .grup-yakinlas:hover .gorsel-yakinlas { @apply scale-[1.06]; }
 
-  /* Uzun metinlerde satır uzunluğunu okunur tut */
   .olcu { max-width: 62ch; }
 }

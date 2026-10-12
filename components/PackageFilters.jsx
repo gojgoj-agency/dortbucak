@@ -28,12 +28,18 @@ export default function PackageFilters({ packages, showCategory = false }) {
   });
 
   const showFilters = packages.length > 4;
-  const sel = "rounded-lg border border-cizgi bg-kagit px-3 py-2 text-base";
+  const sel =
+    "cursor-pointer rounded-full border border-cizgi bg-kagit px-5 py-2.5 text-sm font-medium text-cam shadow-kart transition-colors hover:border-altinacik focus:border-altin";
 
   return (
     <div>
+      <div className="mb-10 flex flex-col gap-4 border-b border-cizgi pb-6 sm:flex-row sm:items-center sm:justify-between">
+        <p className="text-sm text-gri">
+          <span className="font-display text-2xl text-cam">{filtered.length}</span>{" "}
+          program listeleniyor
+        </p>
       {showFilters && (
-        <div className="mb-8 flex flex-wrap gap-3" role="search" aria-label="Paket filtreleri">
+        <div className="flex flex-wrap gap-3" role="search" aria-label="Paket filtreleri">
           {showCategory && (
             <select className={sel} value={cat} onChange={(e) => setCat(e.target.value)} aria-label="Kategori">
               <option value="">Hac / Umre</option>
@@ -53,13 +59,18 @@ export default function PackageFilters({ packages, showCategory = false }) {
           </select>
         </div>
       )}
+      </div>
       {filtered.length === 0 ? (
-        <p className="rounded-2xl border border-cizgi bg-kagit p-8 text-center text-gri">
+        <p className="kart p-10 text-center text-gri">
           Bu ölçütlere uygun program bulunamadı. Yaklaşan programlar için lütfen bizimle iletişime geçin.
         </p>
       ) : (
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {filtered.map((p) => <PackageCard key={p.id} p={p} />)}
+        <div className="grid gap-7 sm:grid-cols-2 lg:grid-cols-3">
+          {filtered.map((p, i) => (
+            <div key={p.id} className="flex">
+              <PackageCard p={p} oncelikli={i < 3} />
+            </div>
+          ))}
         </div>
       )}
     </div>

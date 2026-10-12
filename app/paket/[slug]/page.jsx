@@ -214,7 +214,7 @@ export default async function PackageDetail({ params }) {
         <dl className="grid gap-px overflow-hidden rounded-3xl border border-cizgi bg-cizgi shadow-kartust sm:grid-cols-2 lg:grid-cols-4">
           {ozet.map(({ icon: Icon, etiket, deger }) => (
             <div key={etiket} className="flex gap-3 bg-kagit px-5 py-5">
-              <span className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-sm bg-cam text-altinacik">
+              <span className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-cam text-altinacik">
                 <Icon className="h-4 w-4" aria-hidden />
               </span>
               <div>
@@ -286,7 +286,7 @@ export default async function PackageDetail({ params }) {
                       {i < itinerary.length - 1 && (
                         <span className="absolute bottom-0 left-[1.05rem] top-10 w-px bg-gradient-to-b from-altin/70 to-cizgi" aria-hidden />
                       )}
-                      <span className="relative z-10 flex h-9 w-9 shrink-0 items-center justify-center rounded-sm bg-cam font-display text-sm text-altinacik ring-4 ring-kagit">
+                      <span className="relative z-10 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-cam font-display text-sm text-altinacik ring-4 ring-kagit">
                         {i + 1}
                       </span>
                       <div className="pt-1.5">
@@ -342,7 +342,7 @@ export default async function PackageDetail({ params }) {
               <div className="grid gap-4 md:grid-cols-3">
                 {hizmetler.map(({ icon: Icon, title, text }) => (
                   <section key={title} className="rounded-3xl border border-cizgi bg-kagit p-6 shadow-kart">
-                    <span className="flex h-11 w-11 items-center justify-center rounded-sm bg-cam text-altinacik">
+                    <span className="flex h-11 w-11 items-center justify-center rounded-full bg-cam text-altinacik">
                       <Icon className="h-5 w-5" aria-hidden />
                     </span>
                     <h2 className="mt-4 text-xl">{title}</h2>
@@ -386,7 +386,7 @@ export default async function PackageDetail({ params }) {
             )}
           </div>
 
-          <aside className="order-1 lg:sticky lg:top-36 lg:order-2">
+          <aside className="order-1 lg:sticky lg:top-28 lg:order-2">
             <div className="overflow-hidden rounded-3xl border border-cizgi bg-kagit shadow-kartust">
               <div className="doku relative overflow-hidden bg-camderin px-6 py-6 text-fildisi">
                 <div className="relative">
@@ -418,7 +418,7 @@ export default async function PackageDetail({ params }) {
                 </div>
 
                 <div className="flex flex-col gap-2.5 pt-1">
-                  <a href={waLink(waMsg)} target="_blank" rel="noopener" className="btn-wa w-full">
+                  <a href={waLink(waMsg)} target="_blank" rel="noopener" className="btn-altin w-full">
                     <WaIcon /> WhatsApp&apos;tan Bilgi Al
                   </a>
                   <a href={telLink()} className="btn-cerceve w-full">
@@ -450,7 +450,7 @@ export default async function PackageDetail({ params }) {
       )}
 
       <section className="site-container mt-16 mb-16" aria-labelledby="paket-cagri">
-        <div className="doku relative overflow-hidden rounded-[2rem] bg-camderin px-7 py-14 text-center text-fildisi shadow-derin">
+        <div className="doku relative overflow-hidden rounded-[2rem] bg-camgece px-7 py-16 text-center text-fildisi shadow-derin">
           <div className="relative">
             <p className="kicker-acik">Kayıt</p>
             <h2 id="paket-cagri" className="mt-3 text-2xl !text-fildisi md:text-3xl">
@@ -461,7 +461,7 @@ export default async function PackageDetail({ params }) {
               Tarih, kontenjan ve oda tipi için size en güncel bilgiyi verelim. Sorularınızı kayıt öncesinde yanıtlarız.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
-              <a href={waLink(waMsg)} target="_blank" rel="noopener" className="btn-wa">
+              <a href={waLink(waMsg)} target="_blank" rel="noopener" className="btn-altin">
                 <WaIcon /> WhatsApp&apos;tan Bilgi Al
               </a>
               <a href={telLink()} className="btn-cam-uzeri">
@@ -482,7 +482,7 @@ export default async function PackageDetail({ params }) {
               {from ? from.text : "Bilgi için sorun"}
             </p>
           </div>
-          <a href={waLink(waMsg)} target="_blank" rel="noopener" className="btn-wa shrink-0 !px-4 !py-2.5 text-sm">
+          <a href={waLink(waMsg)} target="_blank" rel="noopener" className="btn-altin shrink-0 !px-4 !py-2.5 text-sm">
             <WaIcon className="h-4 w-4" /> Bilgi Al
           </a>
         </div>

@@ -40,24 +40,32 @@ export default function Page() {
         aciklama="Kutsal topraklara giden yolu huzurlu, düzenli ve doğru bilgiyle yürüyebilmeniz için yanınızdayız."
       />
 
-      <section className="site-container py-16 md:py-20">
-        <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+      <section className="site-container py-24 md:py-28">
+        <div className="grid items-center gap-14 lg:grid-cols-2 lg:gap-20">
           <Reveal yon="sol">
-            <div className="kemer relative mx-auto aspect-[4/5] w-full max-w-md shadow-derin">
-              <Image
-                src="/images/paket-umre-2.webp"
-                alt="Kutsal topraklardan bir görünüm"
-                fill
-                sizes="(max-width: 1024px) 90vw, 420px"
-                className="object-cover"
-              />
+            <div className="relative mx-auto max-w-md">
+              <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] shadow-derin">
+                <Image
+                  src="/images/paket-umre-2.webp"
+                  alt="Kutsal topraklardan bir görünüm"
+                  fill
+                  sizes="(max-width: 1024px) 90vw, 440px"
+                  className="object-cover"
+                />
+              </div>
+              <div className="pointer-events-none absolute -bottom-5 -right-5 -z-10 h-full w-full rounded-[2rem] border border-altinacik/50" aria-hidden />
+              <div className="absolute -bottom-6 left-6 rounded-2xl border border-cizgi bg-kagit px-6 py-4 shadow-kartust">
+                <p className="text-[0.62rem] font-bold uppercase tracking-[0.22em] text-altin">Ofisimiz</p>
+                <p className="mt-1 font-display text-xl text-cam">Keçiören, Ankara</p>
+              </div>
             </div>
           </Reveal>
           <Reveal yon="sag">
             <p className="kicker">Biz kimiz</p>
-            <h2 className="mt-3 text-3xl md:text-4xl">Ankara merkezli bir hac ve umre organizasyonu</h2>
-            <div className="baslik-cizgi !mx-0" />
-            <div className="mt-6 space-y-4 text-gri">
+            <h2 className="baslik-buyuk mt-5">
+              Ankara merkezli bir <span className="italic text-altin">hac ve umre</span> organizasyonu
+            </h2>
+            <div className="mt-7 space-y-4 text-[1.02rem] leading-relaxed text-gri">
               <p>
                 Dört Bucak Tur, Ankara Keçiören’de hac ve umre organizasyonu yapan bir seyahat acentesidir.
                 Amacımız, misafirlerimizin kutsal topraklara yapacakları yolculuğu huzur içinde, doğru
@@ -81,22 +89,27 @@ export default function Page() {
         </div>
       </section>
 
-      <section className="bg-kagit py-16 md:py-20" aria-labelledby="ilkeler">
-        <div className="site-container">
+      <section className="doku relative overflow-hidden bg-camgece py-24 text-fildisi md:py-28" aria-labelledby="ilkeler">
+        <div className="desen pointer-events-none absolute inset-0 opacity-80" aria-hidden />
+        <div className="site-container relative">
           <Reveal className="text-center">
-            <p className="kicker">İlkelerimiz</p>
-            <h2 id="ilkeler" className="mt-3 text-3xl md:text-4xl">Yolculuğu nasıl hazırlıyoruz</h2>
-            <div className="baslik-cizgi" />
+            <p className="kicker-acik kicker-orta">İlkelerimiz</p>
+            <h2 id="ilkeler" className="baslik-buyuk mt-5 !text-fildisi">
+              Yolculuğu <span className="altin-yazi italic">nasıl</span> hazırlıyoruz
+            </h2>
           </Reveal>
-          <RevealGrup className="mt-12 grid gap-6 md:grid-cols-3">
-            {ilkeler.map(([Ikon, baslik, metin]) => (
-              <RevealOge key={baslik}>
-                <article className="h-full rounded-2xl border border-cizgi bg-fildisi p-7 shadow-kart">
-                  <span className="flex h-12 w-12 items-center justify-center rounded-2xl border border-altin/30 bg-altin/10 text-altin">
-                    <Ikon className="h-6 w-6" aria-hidden />
-                  </span>
-                  <h3 className="mt-5 text-xl">{baslik}</h3>
-                  <p className="mt-2 text-gri">{metin}</p>
+          <RevealGrup className="mt-14 grid gap-6 md:grid-cols-3">
+            {ilkeler.map(([Ikon, baslik, metin], i) => (
+              <RevealOge key={baslik} className="h-full">
+                <article className="kart-koyu group h-full p-8 hover:-translate-y-1 hover:border-altinacik/40">
+                  <div className="flex items-center justify-between">
+                    <span className="flex h-12 w-12 items-center justify-center rounded-full border border-altinacik/35 bg-altinacik/10 text-altinacik transition-colors duration-500 group-hover:bg-altinacik group-hover:text-camgece">
+                      <Ikon className="h-5 w-5" aria-hidden />
+                    </span>
+                    <span className="font-display text-3xl text-white/10">{String(i + 1).padStart(2, "0")}</span>
+                  </div>
+                  <h3 className="mt-6 text-xl !text-fildisi">{baslik}</h3>
+                  <p className="mt-2 text-fildisi/60">{metin}</p>
                 </article>
               </RevealOge>
             ))}
@@ -104,9 +117,9 @@ export default function Page() {
         </div>
       </section>
 
-      <section className="site-container py-16 md:py-20">
+      <section className="site-container pt-24 md:pt-28">
         <Reveal>
-          <div className="rounded-2xl border border-altin/30 bg-altin/10 px-6 py-7 sm:px-8">
+          <div className="rounded-[1.25rem] border border-altinacik/50 bg-kagit px-6 py-7 shadow-kart sm:px-9">
             <p className="kicker">Önemli not</p>
             <p className="mt-3 max-w-3xl text-murekkep">
               Vize, pasaport, aşı ve resmî seyahat şartları zaman içinde değişebilir. Güncel şartlar,
@@ -116,11 +129,14 @@ export default function Page() {
         </Reveal>
 
         <Reveal className="mt-8">
-          <div className="doku relative overflow-hidden rounded-[1.75rem] bg-camderin px-6 py-12 text-center text-fildisi shadow-derin ring-1 ring-altinacik/20 sm:px-10 sm:py-16">
+          <div className="relative overflow-hidden rounded-[2rem] bg-cam px-6 py-14 text-center text-fildisi shadow-derin sm:px-10 sm:py-20">
+            <div className="desen pointer-events-none absolute inset-0 opacity-70" aria-hidden />
+            <div className="pointer-events-none absolute inset-4 rounded-[1.5rem] border border-altinacik/20" aria-hidden />
             <div className="relative">
-              <p className="kicker-acik">Programlar</p>
-              <h2 className="mt-3 text-2xl !text-fildisi md:text-3xl">Hac ve umre programlarımıza göz atın</h2>
-              <div className="baslik-cizgi" />
+              <p className="kicker-acik kicker-orta">Programlar</p>
+              <h2 className="baslik-buyuk mt-5 !text-fildisi">
+                Hac ve umre <span className="altin-yazi italic">programlarımız</span>
+              </h2>
               <p className="mx-auto mt-5 max-w-xl text-fildisi/80">
                 Tarih, süre ve konaklama planlarını inceleyin; aklınıza takılan her şeyi bize sorun.
               </p>
@@ -137,7 +153,7 @@ export default function Page() {
                   href={waLink("Merhaba, hac ve umre programlarınız hakkında bilgi almak istiyorum.")}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-wa"
+                  className="btn-altin"
                 >
                   <WaIcon /> WhatsApp
                 </a>

@@ -4,7 +4,7 @@ import { useFormState, useFormStatus } from "react-dom";
 
 const inp = "yonetim-alan";
 const dosya =
-  "max-w-full text-sm text-gri file:mr-3 file:cursor-pointer file:rounded-lg file:border-0 file:bg-cam file:px-3.5 file:py-2 file:text-sm file:font-semibold file:text-fildisi hover:file:bg-camderin";
+  "block w-full max-w-full text-sm text-gri file:mr-3 file:cursor-pointer file:rounded-lg file:border-0 file:bg-cam file:px-3.5 file:py-2 file:text-sm file:font-semibold file:text-fildisi hover:file:bg-camderin";
 
 function Upload({ name, label, value, hint }) {
   const [url, setUrl] = useState(value || "");
@@ -68,7 +68,7 @@ export default function SliderForm({ slider, action }) {
           <h2 className="text-xl">Görseller</h2>
           <p className="mt-1 text-sm text-gri">Geniş ekranda masaüstü, telefonda mobil görsel kullanılır.</p>
         </div>
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="grid items-start gap-5 md:grid-cols-2">
           <Upload name="image_desktop" label="Masaüstü görseli" value={s.image_desktop} hint="Yatay, en az 1600 piksel genişlik uygun olur." />
           <Upload name="image_mobile" label="Mobil görseli" value={s.image_mobile} hint="Dikey kadraj, yazının okunacağı boşluk bırakın." />
         </div>
@@ -79,30 +79,30 @@ export default function SliderForm({ slider, action }) {
           <h2 className="text-xl">Metin ve bağlantı</h2>
           <p className="mt-1 text-sm text-gri">Başlık görselin üzerinde, düğme verilen adrese gider.</p>
         </div>
-        <div className="grid gap-4 md:grid-cols-2">
-          <label className="block">
+        <div className="grid items-start gap-5 md:grid-cols-2">
+          <label className="block min-w-0">
             <span className="yonetim-etiket">Küçük üst başlık</span>
             <input name="kicker" defaultValue={s.kicker || ""} className={inp} />
           </label>
-          <label className="block">
+          <label className="block min-w-0">
             <span className="yonetim-etiket">Ana başlık *</span>
             <input name="title" required defaultValue={s.title || ""} className={inp} />
           </label>
         </div>
-        <label className="block">
+        <label className="block min-w-0">
           <span className="yonetim-etiket">Kısa açıklama</span>
           <textarea name="description" rows={2} defaultValue={s.description || ""} className={`${inp} resize-y`} />
         </label>
-        <div className="grid gap-4 md:grid-cols-3">
-          <label className="block">
+        <div className="grid items-start gap-5 md:grid-cols-2 xl:grid-cols-3">
+          <label className="block min-w-0">
             <span className="yonetim-etiket">Düğme metni</span>
             <input name="button_text" defaultValue={s.button_text || ""} className={inp} />
           </label>
-          <label className="block">
+          <label className="block min-w-0">
             <span className="yonetim-etiket">Düğme bağlantısı</span>
             <input name="button_link" defaultValue={s.button_link || ""} placeholder="/umre-turlari" className={inp} />
           </label>
-          <label className="block">
+          <label className="block min-w-0">
             <span className="yonetim-etiket">Gösterim sırası</span>
             <input type="number" name="sort_order" defaultValue={s.sort_order ?? 0} className={inp} />
             <span className="yonetim-ipucu block">Küçük sayı önce görünür.</span>

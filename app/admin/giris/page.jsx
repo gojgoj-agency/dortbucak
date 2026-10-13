@@ -33,7 +33,7 @@ export default function Login() {
           </p>
         </div>
         <p className="relative text-xs font-semibold uppercase tracking-[0.22em] text-altinacik">
-          Ankara · Keçiören
+          Ankara
         </p>
       </section>
 

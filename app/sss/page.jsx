@@ -3,7 +3,7 @@ import { Phone } from "lucide-react";
 import Faq from "@/components/Faq";
 import JsonLd from "@/components/JsonLd";
 import { WaIcon } from "@/components/SocialLinks";
-import { sorular } from "@/lib/faq";
+import { getFaqs } from "@/lib/db";
 import { site, telLink, waLink } from "@/lib/site";
 import { breadcrumbLd, sayfaMeta } from "@/lib/seo";
 
@@ -19,46 +19,30 @@ const grupTanim = [
     id: "program",
     baslik: "Program ve yolculuk",
     metin: "Süre, rehber, katılım ve organizasyonun nasıl ilerlediği.",
-    sorular: [
-      "Umre programları kaç gün sürüyor?",
-      "Yolculuk boyunca rehber eşlik ediyor mu?",
-      "Tek başıma katılabilir miyim?",
-      "Çocuklar programa katılabilir mi?",
-      "Hangi şehirden organizasyon yapıyorsunuz?",
-      "Yaşlı veya tekerlekli sandalye kullanan misafirler katılabilir mi?",
-      "Kayıt için ne zaman başvurmalıyım?",
-    ],
   },
   {
     id: "fiyat",
     baslik: "Fiyat ve konaklama",
     metin: "Pakete dahil olanlar, oda farkı ve ödeme.",
-    sorular: [
-      "Fiyatlara neler dahil?",
-      "3 ve 2 kişilik oda farkı ne kadar?",
-      "Ramazan umresi neden ayrı fiyatlanıyor?",
-      "Ödemeyi nasıl yapabilirim?",
-    ],
   },
   {
     id: "evrak",
     baslik: "Evrak ve sağlık",
     metin: "Pasaport, vize, hac kaydı ve sağlık şartları.",
-    sorular: [
-      "Umre için pasaport süresi ne kadar olmalı?",
-      "Hac kayıtları nasıl yapılıyor?",
-      "Umre vizesi için ne gerekir?",
-      "Aşı ve sağlık şartları var mı?",
-    ],
   },
 ];
 
-const gruplar = grupTanim.map((grup) => ({
-  ...grup,
-  maddeler: sorular.filter(([soru]) => grup.sorular.includes(soru)),
-}));
+export const dynamic = "force-dynamic";
 
-export default function Page() {
+export default async function Page() {
+  const kayitlar = await getFaqs(true);
+  const sorular = kayitlar.map((k) => [k.question, k.answer]);
+  const gruplar = grupTanim
+    .map((grup) => ({
+      ...grup,
+      maddeler: kayitlar.filter((k) => k.group_key === grup.id).map((k) => [k.question, k.answer]),
+    }))
+    .filter((grup) => grup.maddeler.length);
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [

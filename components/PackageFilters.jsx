@@ -42,9 +42,10 @@ export default function PackageFilters({ packages, showCategory = false }) {
         <div className="flex flex-wrap gap-3" role="search" aria-label="Paket filtreleri">
           {showCategory && (
             <select className={sel} value={cat} onChange={(e) => setCat(e.target.value)} aria-label="Kategori">
-              <option value="">Hac / Umre</option>
-              <option value="hac">Hac</option>
+              <option value="">Tüm kategoriler</option>
               <option value="umre">Umre</option>
+              <option value="hac">Hac</option>
+              <option value="kultur">Kültür</option>
             </select>
           )}
           <select className={sel} value={month} onChange={(e) => setMonth(e.target.value)} aria-label="Ay">

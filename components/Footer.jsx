@@ -9,13 +9,16 @@ import Logo from "@/components/Logo";
 const sayfalar = [
   ["/", "Ana Sayfa"],
   ["/hakkimizda", "Hakkımızda"],
+  ["/ilkelerimiz", "İlkelerimiz"],
   ["/sss", "Sık Sorulan Sorular"],
   ["/iletisim", "İletişim"],
 ];
 
 const programlar = [
-  ["/hac-turlari", "Hac Turları"],
   ["/umre-turlari", "Umre Turları"],
+  ["/hac-turlari", "Hac Programları"],
+  ["/kultur-turlari", "Kültür Turları"],
+  ["/kisiye-ozel-turlar", "Kişiye Özel Turlar"],
   ["/paket/ekim-kasim-umresi", "Ekim – Kasım Umresi"],
   ["/paket/aralik-ocak-umresi", "Aralık – Ocak Umresi"],
   ["/paket/tam-ramazan-umresi", "Ramazan Umresi"],
@@ -80,9 +83,10 @@ export default function Footer() {
       <div className="site-container relative grid gap-12 py-14 sm:grid-cols-2 lg:grid-cols-12 lg:gap-8">
         <div className="sm:col-span-2 lg:col-span-4">
           <Logo boyut="buyuk" />
-          <p className="mt-6 max-w-sm text-sm leading-relaxed text-fildisi/60">
-            Ankara Keçiören merkezli hac ve umre organizasyonu. Din görevlisi ve rehber eşliğinde,
-            Mekke ve Medine konaklamalı programlar.
+          <p className="mt-6 max-w-sm font-display text-xl leading-snug text-fildisi">{site.slogan}</p>
+          <p className="mt-3 max-w-sm text-sm leading-relaxed text-fildisi/60">
+            Ankara merkezli hac, umre, kültür ve kişiye özel turlar. Din görevlisi ve rehber
+            eşliğinde programlar; kültür rotalarında tarihe ve doğaya yolculuk.
           </p>
           <div className="mt-6 inline-flex items-center gap-3 rounded-full border border-altinacik/25 bg-white/[0.03] px-4 py-2 text-xs text-fildisi/70">
             <ShieldCheck className="h-4 w-4 text-altinacik" aria-hidden />

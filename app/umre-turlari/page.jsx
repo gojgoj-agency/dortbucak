@@ -25,7 +25,7 @@ export default function Page() {
       <PackageListPage
         category="umre"
         title="Umre Turları"
-        intro="14 günlük umre programlarımızın dönem fiyatları 4 kişilik odada kişi başıdır. 3 ve 2 kişilik odalarda 75 dolar, Ramazan umrelerinde 100 dolar eklenir. Size uygun dönemi birlikte belirlemek için bize ulaşın."
+        intro="14 günlük umre programlarımızın dönem fiyatları 4 kişilik odada kişi başıdır.Size uygun dönemi birlikte belirlemek için bize ulaşın."
       />
     </>
   );

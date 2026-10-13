@@ -14,9 +14,20 @@ async function requireAdmin() {
 }
 
 function refresh() {
-  ["/", "/hac-turlari", "/umre-turlari", "/admin/paketler", "/admin/slider"].forEach((p) =>
-    revalidatePath(p)
-  );
+  [
+    "/",
+    "/hac-turlari",
+    "/umre-turlari",
+    "/kultur-turlari",
+    "/kisiye-ozel-turlar",
+    "/sss",
+    "/ilkelerimiz",
+    "/admin/paketler",
+    "/admin/slider",
+    "/admin/sss",
+    "/admin/ilkelerimiz",
+    "/admin/kisiye-ozel",
+  ].forEach((p) => revalidatePath(p));
 }
 
 // ---------- Oturum ----------
@@ -72,7 +83,7 @@ export async function savePackageAction(prevState, formData) {
 
   const row = {
     id,
-    category: txt("category") === "hac" ? "hac" : "umre",
+    category: ["hac", "umre", "kultur"].includes(txt("category")) ? txt("category") : "umre",
     label: txt("label"),
     name,
     slug,
@@ -179,6 +190,187 @@ export async function movePackageAction(formData) {
       args: [k + 1, x.id],
     }))
   );
+  refresh();
+}
+
+const faqGruplari = ["program", "fiyat", "evrak"];
+const ilkeIkonlari = ["Heart", "BookOpen", "ClipboardCheck", "Headphones", "Users"];
+const ozelIkonlar = ["CalendarRange", "Users", "Route", "Hotel", "Compass", "MapPin", "Heart", "Phone"];
+
+export async function saveFaqAction(prevState, formData) {
+  await requireAdmin();
+  const id = Number(formData.get("id") || 0);
+  const question = String(formData.get("question") || "").trim();
+  const answer = String(formData.get("answer") || "").trim();
+  if (!question || !answer) return { error: "Soru ve cevap zorunludur." };
+  const group = String(formData.get("group_key") || "");
+  const row = {
+    id,
+    group_key: faqGruplari.includes(group) ? group : "program",
+    question,
+    answer,
+    sort_order: Number(formData.get("sort_order") || 0) || 0,
+    featured: formData.get("featured") ? 1 : 0,
+    active: formData.get("active") ? 1 : 0,
+  };
+  if (id) {
+    await db.run(`UPDATE faqs SET group_key=@group_key, question=@question, answer=@answer,
+      sort_order=@sort_order, featured=@featured, active=@active WHERE id=@id`, row);
+  } else {
+    delete row.id;
+    await db.run(`INSERT INTO faqs (group_key, question, answer, sort_order, featured, active)
+      VALUES (@group_key, @question, @answer, @sort_order, @featured, @active)`, row);
+  }
+  refresh();
+  redirect("/admin/sss?kayit=1");
+}
+
+export async function deleteFaqAction(formData) {
+  await requireAdmin();
+  await db.run("DELETE FROM faqs WHERE id=?", Number(formData.get("id")));
+  refresh();
+}
+
+export async function toggleFaqAction(formData) {
+  await requireAdmin();
+  const field = formData.get("field") === "featured" ? "featured" : "active";
+  await db.run(`UPDATE faqs SET ${field} = 1 - ${field} WHERE id=?`, Number(formData.get("id")));
+  refresh();
+}
+
+export async function moveFaqAction(formData) {
+  await requireAdmin();
+  const id = Number(formData.get("id"));
+  const dir = formData.get("dir") === "up" ? -1 : 1;
+  const list = await db.all("SELECT id FROM faqs ORDER BY sort_order ASC, id ASC");
+  const i = list.findIndex((x) => x.id === id);
+  const j = i + dir;
+  if (j < 0 || j >= list.length) return;
+  [list[i], list[j]] = [list[j], list[i]];
+  await db.batch(list.map((x, k) => ({ sql: "UPDATE faqs SET sort_order=? WHERE id=?", args: [k + 1, x.id] })));
+  refresh();
+}
+
+export async function savePrincipleAction(prevState, formData) {
+  await requireAdmin();
+  const id = Number(formData.get("id") || 0);
+  const title = String(formData.get("title") || "").trim();
+  const body = String(formData.get("body") || "").trim();
+  if (!title || !body) return { error: "Başlık ve metin zorunludur." };
+  const icon = String(formData.get("icon") || "");
+  const row = {
+    id,
+    icon: ilkeIkonlari.includes(icon) ? icon : "Heart",
+    title,
+    body,
+    sort_order: Number(formData.get("sort_order") || 0) || 0,
+    active: formData.get("active") ? 1 : 0,
+  };
+  if (id) {
+    await db.run(`UPDATE principles SET icon=@icon, title=@title, body=@body,
+      sort_order=@sort_order, active=@active WHERE id=@id`, row);
+  } else {
+    delete row.id;
+    await db.run(`INSERT INTO principles (icon, title, body, sort_order, active)
+      VALUES (@icon, @title, @body, @sort_order, @active)`, row);
+  }
+  refresh();
+  redirect("/admin/ilkelerimiz?kayit=1");
+}
+
+export async function deletePrincipleAction(formData) {
+  await requireAdmin();
+  await db.run("DELETE FROM principles WHERE id=?", Number(formData.get("id")));
+  refresh();
+}
+
+export async function togglePrincipleAction(formData) {
+  await requireAdmin();
+  await db.run("UPDATE principles SET active = 1 - active WHERE id=?", Number(formData.get("id")));
+  refresh();
+}
+
+export async function movePrincipleAction(formData) {
+  await requireAdmin();
+  const id = Number(formData.get("id"));
+  const dir = formData.get("dir") === "up" ? -1 : 1;
+  const list = await db.all("SELECT id FROM principles ORDER BY sort_order ASC, id ASC");
+  const i = list.findIndex((x) => x.id === id);
+  const j = i + dir;
+  if (j < 0 || j >= list.length) return;
+  [list[i], list[j]] = [list[j], list[i]];
+  await db.batch(list.map((x, k) => ({ sql: "UPDATE principles SET sort_order=? WHERE id=?", args: [k + 1, x.id] })));
+  refresh();
+}
+
+export async function saveCustomPageAction(prevState, formData) {
+  await requireAdmin();
+  const row = {
+    lead: String(formData.get("lead") || "").trim(),
+    body_1: String(formData.get("body_1") || "").trim(),
+    body_2: String(formData.get("body_2") || "").trim(),
+    cover_image: String(formData.get("cover_image") || "").trim(),
+    side_image: String(formData.get("side_image") || "").trim(),
+  };
+  if (!row.lead || !row.body_1) return { error: "Kapak açıklaması ve ilk paragraf zorunludur." };
+  await db.run(`INSERT INTO custom_page (id, lead, body_1, body_2, cover_image, side_image)
+    VALUES (1, @lead, @body_1, @body_2, @cover_image, @side_image)
+    ON CONFLICT(id) DO UPDATE SET
+      lead=excluded.lead, body_1=excluded.body_1, body_2=excluded.body_2,
+      cover_image=excluded.cover_image, side_image=excluded.side_image`, row);
+  refresh();
+  redirect("/admin/kisiye-ozel?kayit=sayfa");
+}
+
+export async function saveCustomPointAction(prevState, formData) {
+  await requireAdmin();
+  const id = Number(formData.get("id") || 0);
+  const title = String(formData.get("title") || "").trim();
+  const body = String(formData.get("body") || "").trim();
+  if (!title || !body) return { error: "Başlık ve metin zorunludur." };
+  const icon = String(formData.get("icon") || "");
+  const row = {
+    id,
+    icon: ozelIkonlar.includes(icon) ? icon : "CalendarRange",
+    title,
+    body,
+    sort_order: Number(formData.get("sort_order") || 0) || 0,
+    active: formData.get("active") ? 1 : 0,
+  };
+  if (id) {
+    await db.run(`UPDATE custom_points SET icon=@icon, title=@title, body=@body,
+      sort_order=@sort_order, active=@active WHERE id=@id`, row);
+  } else {
+    delete row.id;
+    await db.run(`INSERT INTO custom_points (icon, title, body, sort_order, active)
+      VALUES (@icon, @title, @body, @sort_order, @active)`, row);
+  }
+  refresh();
+  redirect("/admin/kisiye-ozel?kayit=1");
+}
+
+export async function deleteCustomPointAction(formData) {
+  await requireAdmin();
+  await db.run("DELETE FROM custom_points WHERE id=?", Number(formData.get("id")));
+  refresh();
+}
+
+export async function toggleCustomPointAction(formData) {
+  await requireAdmin();
+  await db.run("UPDATE custom_points SET active = 1 - active WHERE id=?", Number(formData.get("id")));
+  refresh();
+}
+
+export async function moveCustomPointAction(formData) {
+  await requireAdmin();
+  const id = Number(formData.get("id"));
+  const dir = formData.get("dir") === "up" ? -1 : 1;
+  const list = await db.all("SELECT id FROM custom_points ORDER BY sort_order ASC, id ASC");
+  const i = list.findIndex((x) => x.id === id);
+  const j = i + dir;
+  if (j < 0 || j >= list.length) return;
+  [list[i], list[j]] = [list[j], list[i]];
+  await db.batch(list.map((x, k) => ({ sql: "UPDATE custom_points SET sort_order=? WHERE id=?", args: [k + 1, x.id] })));
   refresh();
 }
 

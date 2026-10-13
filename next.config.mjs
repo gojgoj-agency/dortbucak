@@ -2,6 +2,11 @@
 const nextConfig = {
   experimental: {
     serverComponentsExternalPackages: ["@libsql/client"],
+    // İstemci gezinmesi eski RSC kopyasını tutmasın; tıklayınca güncel veri gelsin.
+    staleTimes: {
+      dynamic: 0,
+      static: 0,
+    },
   },
   images: {
     // AVIF ilk istekte yavaş kodlanır; boş/geç yanıt gibi görünür. WebP yeterli.
@@ -27,3 +32,4 @@ const nextConfig = {
   },
 };
 export default nextConfig;
+

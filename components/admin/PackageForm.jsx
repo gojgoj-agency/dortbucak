@@ -7,7 +7,7 @@ import { slugify } from "@/lib/slug";
 
 const inp = "yonetim-alan";
 const dosya =
-  "max-w-full text-sm text-gri file:mr-3 file:cursor-pointer file:rounded-lg file:border-0 file:bg-cam file:px-3.5 file:py-2 file:text-sm file:font-semibold file:text-fildisi hover:file:bg-camderin";
+  "block w-full max-w-full text-sm text-gri file:mr-3 file:cursor-pointer file:rounded-lg file:border-0 file:bg-cam file:px-3.5 file:py-2 file:text-sm file:font-semibold file:text-fildisi hover:file:bg-camderin";
 
 function Bolum({ baslik, aciklama, children }) {
   return (
@@ -21,12 +21,12 @@ function Bolum({ baslik, aciklama, children }) {
   );
 }
 
-function Alan({ label, children, hint }) {
+function Alan({ label, children, hint, className = "" }) {
   return (
-    <label className="block">
+    <label className={`block min-w-0 ${className}`}>
       <span className="yonetim-etiket">{label}</span>
       {children}
-      {hint ? <span className="yonetim-ipucu block">{hint}</span> : null}
+      {hint ? <span className="yonetim-ipucu">{hint}</span> : null}
     </label>
   );
 }
@@ -231,11 +231,12 @@ export default function PackageForm({ pkg, action }) {
       {p.id ? <input type="hidden" name="id" value={p.id} /> : null}
 
       <Bolum baslik="Temel bilgiler" aciklama="Paketin adı, kategorisi ve sitede görünen metinler.">
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="grid items-start gap-5 md:grid-cols-2">
           <Alan label="Kategori">
             <select name="category" defaultValue={p.category || "umre"} className={inp}>
               <option value="umre">Umre</option>
               <option value="hac">Hac</option>
+              <option value="kultur">Kültür</option>
             </select>
           </Alan>
           <Alan label="Paket etiketi" hint="Örn: Ekonomik, Standart, Premium, Gençlik Umresi">
@@ -263,7 +264,7 @@ export default function PackageForm({ pkg, action }) {
       </Bolum>
 
       <Bolum baslik="Tarih ve süre" aciklama="Kartlarda ve paket sayfasında tarih ile gece dağılımı olarak görünür.">
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid items-start gap-5 sm:grid-cols-2 xl:grid-cols-3">
           <Alan label="Başlangıç tarihi"><input type="date" name="start_date" defaultValue={p.start_date || ""} className={inp} /></Alan>
           <Alan label="Bitiş tarihi"><input type="date" name="end_date" defaultValue={p.end_date || ""} className={inp} /></Alan>
           <Alan label="Gece sayısı"><input type="number" min="0" name="nights" defaultValue={p.nights ?? ""} className={inp} /></Alan>
@@ -274,7 +275,7 @@ export default function PackageForm({ pkg, action }) {
       </Bolum>
 
       <Bolum baslik="Fiyat ve kontenjan" aciklama="Fiyat boşsa sitede “Fiyat bilgisi için iletişime geçin” yazar.">
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid items-start gap-5 sm:grid-cols-2 xl:grid-cols-3">
           <Alan label="2 kişilik oda (kişi başı)"><input type="number" min="0" step="0.01" name="price_double" defaultValue={p.price_double ?? ""} className={inp} /></Alan>
           <Alan label="3 kişilik oda (kişi başı)"><input type="number" min="0" step="0.01" name="price_triple" defaultValue={p.price_triple ?? ""} className={inp} /></Alan>
           <Alan label="4 kişilik oda (kişi başı)"><input type="number" min="0" step="0.01" name="price_quad" defaultValue={p.price_quad ?? ""} className={inp} /></Alan>
@@ -299,7 +300,7 @@ export default function PackageForm({ pkg, action }) {
         <ListField name="excluded" label="Pakete dahil olmayan hizmetler" initial={parseJson(p.excluded)} placeholder="Örn: Kişisel harcamalar" />
         <ListField name="itinerary" label="Program akışı" initial={parseJson(p.itinerary)} placeholder="Örn: Medine'ye varış ve yerleşme" />
         <ListField name="documents" label="Gerekli belgeler" initial={parseJson(p.documents)} placeholder="Örn: En az 1 yıl geçerli pasaport" />
-        <div className="grid gap-4 md:grid-cols-3">
+        <div className="grid items-start gap-5 md:grid-cols-2 xl:grid-cols-3">
           <Alan label="Ulaşım bilgisi"><textarea name="transport_info" rows={3} defaultValue={p.transport_info || ""} className={`${inp} resize-y`} /></Alan>
           <Alan label="Konaklama bilgisi"><textarea name="lodging_info" rows={3} defaultValue={p.lodging_info || ""} className={`${inp} resize-y`} /></Alan>
           <Alan label="Rehberlik bilgisi"><textarea name="guide_info" rows={3} defaultValue={p.guide_info || ""} className={`${inp} resize-y`} /></Alan>
@@ -310,7 +311,7 @@ export default function PackageForm({ pkg, action }) {
       </Bolum>
 
       <Bolum baslik="SEO ve yayın" aciklama="Arama sonucu metinleri boşsa paket adından önerilir; dilediğiniz gibi değiştirin.">
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="grid items-start gap-5 lg:grid-cols-2">
           <Alan label="SEO başlığı">
             <input name="seo_title" value={seoTitle} onChange={(e) => setSeoTitle(e.target.value)} className={inp} />
           </Alan>
@@ -321,7 +322,7 @@ export default function PackageForm({ pkg, action }) {
             <input type="number" name="sort_order" defaultValue={p.sort_order ?? 0} className={inp} />
           </Alan>
         </div>
-        <div className="grid gap-3 md:grid-cols-2">
+        <div className="grid items-start gap-3 sm:grid-cols-2">
           <Secim name="featured" title="Ana sayfada öne çıkar" text="Paket, ana sayfadaki öne çıkanlar bölümünde görünür." defaultChecked={!!p.featured} />
           <Secim name="active" title="Yayında" text="Kapalıysa paket taslak kalır ve sitede listelenmez." defaultChecked={p.id ? !!p.active : true} />
         </div>

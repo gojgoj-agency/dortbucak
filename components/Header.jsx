@@ -1,22 +1,148 @@
 "use client";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
-import { ArrowUpRight, Clock, Mail, MapPin, Phone } from "lucide-react";
+import { ArrowUpRight, ChevronDown, Clock, Mail, MapPin, Phone } from "lucide-react";
 import { site, telLink, waLink } from "@/lib/site";
 import SocialLinks, { WaIcon } from "@/components/SocialLinks";
 import Logo from "@/components/Logo";
 
 export { WaIcon };
 
+const turlar = {
+  label: "Dört Bucak Turları",
+  children: [
+    ["/umre-turlari", "Umre"],
+    ["/hac-turlari", "Hac"],
+    ["/kultur-turlari", "Kültür"],
+    ["/kisiye-ozel-turlar", "Kişiye özel turlar"],
+  ],
+};
+
 const links = [
-  ["/", "Ana Sayfa"],
-  ["/hac-turlari", "Hac Turları"],
-  ["/umre-turlari", "Umre Turları"],
-  ["/hakkimizda", "Hakkımızda"],
-  ["/sss", "Sık Sorulan Sorular", "SSS"],
-  ["/iletisim", "İletişim"],
+  { href: "/", label: "Ana Sayfa" },
+  turlar,
+  { href: "/hakkimizda", label: "Hakkımızda" },
+  { href: "/ilkelerimiz", label: "İlkelerimiz" },
+  { href: "/sss", label: "Sık Sorulan Sorular", kisa: "SSS" },
+  { href: "/iletisim", label: "İletişim" },
 ];
+
+function sayfaAktif(path, href) {
+  return path === href || (href !== "/" && path.startsWith(href));
+}
+
+function NavLink({ item, path }) {
+  const aktif = sayfaAktif(path, item.href);
+  return (
+    <Link
+      href={item.href}
+      aria-current={aktif ? "page" : undefined}
+      className={`group relative whitespace-nowrap px-2 py-2 text-[0.72rem] font-medium uppercase tracking-[0.1em] transition-colors xl:px-3 xl:text-[0.78rem] xl:tracking-[0.12em] ${
+        aktif ? "text-altinparlak" : "text-fildisi/75 hover:text-white"
+      }`}
+    >
+      {item.kisa ? (
+        <>
+          <span className="2xl:hidden">{item.kisa}</span>
+          <span className="hidden 2xl:inline">{item.label}</span>
+        </>
+      ) : (
+        item.label
+      )}
+      <span
+        className={`absolute inset-x-2 -bottom-0.5 h-px origin-center bg-altin-gradyan transition-transform duration-500 ease-yumusak xl:inset-x-3 ${
+          aktif ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
+        }`}
+        aria-hidden
+      />
+    </Link>
+  );
+}
+
+function TurMenu({ item, path }) {
+  const [acik, setAcik] = useState(false);
+  const kutu = useRef(null);
+  const aktif = item.children.some(([href]) => sayfaAktif(path, href));
+
+  useEffect(() => setAcik(false), [path]);
+
+  useEffect(() => {
+    if (!acik) return;
+    const kapat = (e) => {
+      if (!kutu.current?.contains(e.target)) setAcik(false);
+    };
+    document.addEventListener("pointerdown", kapat);
+    return () => document.removeEventListener("pointerdown", kapat);
+  }, [acik]);
+
+  return (
+    <div
+      ref={kutu}
+      className="relative"
+      onMouseEnter={() => setAcik(true)}
+      onMouseLeave={() => setAcik(false)}
+      onKeyDown={(e) => {
+        if (e.key === "Escape") setAcik(false);
+      }}
+    >
+      <button
+        type="button"
+        className={`group relative inline-flex items-center gap-1 whitespace-nowrap px-2 py-2 text-[0.72rem] font-medium uppercase tracking-[0.1em] transition-colors xl:px-3 xl:text-[0.78rem] xl:tracking-[0.12em] ${
+          aktif || acik ? "text-altinparlak" : "text-fildisi/75 hover:text-white"
+        }`}
+        aria-expanded={acik}
+        aria-haspopup="true"
+        onClick={() => setAcik((v) => !v)}
+      >
+        {item.label}
+        <ChevronDown className={`h-3.5 w-3.5 transition-transform duration-300 ${acik ? "rotate-180" : ""}`} aria-hidden />
+        <span
+          className={`absolute inset-x-2 -bottom-0.5 h-px origin-center bg-altin-gradyan transition-transform duration-500 ease-yumusak xl:inset-x-3 ${
+            aktif || acik ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
+          }`}
+          aria-hidden
+        />
+      </button>
+      <div className={`absolute left-1/2 top-full z-50 -translate-x-1/2 pt-3 ${acik ? "visible" : "invisible"}`}>
+        <div
+          className={`min-w-[15.5rem] rounded-2xl border border-white/10 bg-camderin/95 p-2 shadow-derin backdrop-blur-xl transition-all duration-300 ease-yumusak ${
+            acik ? "translate-y-0 opacity-100" : "-translate-y-1 opacity-0"
+          }`}
+        >
+          {item.children.map(([href, label]) => {
+            const secili = sayfaAktif(path, href);
+            return (
+              <Link
+                key={href}
+                href={href}
+                aria-current={secili ? "page" : undefined}
+                className={`block rounded-xl px-4 py-3 text-sm transition-colors ${
+                  secili ? "bg-white/[0.06] text-altinparlak" : "text-fildisi/80 hover:bg-white/[0.04] hover:text-white"
+                }`}
+              >
+                {label}
+              </Link>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function mobilOgeler(liste) {
+  const sonuc = [];
+  for (const item of liste) {
+    if (item.children) {
+      sonuc.push({ baslik: true, label: item.label });
+      for (const [href, label] of item.children) sonuc.push({ href, label, alt: true });
+    } else {
+      sonuc.push(item);
+    }
+  }
+  return sonuc;
+}
 
 export default function Header() {
   const [open, setOpen] = useState(false);
@@ -55,7 +181,7 @@ export default function Header() {
           <div className="flex min-w-0 items-center gap-5">
             <span className="hidden items-center gap-2 whitespace-nowrap md:inline-flex">
               <MapPin className="h-3.5 w-3.5 shrink-0 text-altinacik" aria-hidden />
-              Keçiören, Ankara
+              Ankara
             </span>
             <span className="hidden items-center gap-2 whitespace-nowrap xl:inline-flex">
               <Clock className="h-3.5 w-3.5 shrink-0 text-altinacik" aria-hidden />
@@ -94,34 +220,13 @@ export default function Header() {
           <Logo boyut={kaydi ? "kucuk" : "orta"} />
 
           <nav className="hidden items-center lg:flex" aria-label="Ana menü">
-            {links.map(([href, label, kisa]) => {
-              const aktif = path === href || (href !== "/" && path.startsWith(href));
-              return (
-                <Link
-                  key={href}
-                  href={href}
-                  aria-current={aktif ? "page" : undefined}
-                  className={`group relative whitespace-nowrap px-3 py-2 text-[0.8rem] font-medium uppercase tracking-[0.14em] transition-colors xl:px-4 ${
-                    aktif ? "text-altinparlak" : "text-fildisi/75 hover:text-white"
-                  }`}
-                >
-                  {kisa ? (
-                    <>
-                      <span className="xl:hidden">{kisa}</span>
-                      <span className="hidden xl:inline">{label}</span>
-                    </>
-                  ) : (
-                    label
-                  )}
-                  <span
-                    className={`absolute inset-x-3 -bottom-0.5 h-px origin-center bg-altin-gradyan transition-transform duration-500 ease-yumusak xl:inset-x-4 ${
-                      aktif ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
-                    }`}
-                    aria-hidden
-                  />
-                </Link>
-              );
-            })}
+            {links.map((item) =>
+              item.children ? (
+                <TurMenu key={item.label} item={item} path={path} />
+              ) : (
+                <NavLink key={item.href} item={item} path={path} />
+              )
+            )}
           </nav>
 
           <div className="flex shrink-0 items-center gap-3">
@@ -164,24 +269,40 @@ export default function Header() {
       {/* Mobil menü */}
       <div
         id="mobil-menu"
-        className={`fixed inset-x-0 bottom-0 z-40 bg-camgece/98 backdrop-blur-xl transition-all duration-500 ease-yumusak lg:hidden ${
+        className={`fixed inset-x-0 bottom-0 z-40 bg-camgece transition-all duration-500 ease-yumusak lg:hidden ${
           kaydi ? "top-[6.75rem]" : "top-[11rem]"
         } ${open ? "visible opacity-100" : "invisible opacity-0"}`}
       >
         <div className="desen absolute inset-0 opacity-60" aria-hidden />
         <nav className="site-container relative flex h-full flex-col overflow-y-auto py-6" aria-label="Mobil menü">
-          {links.map(([href, label], i) => {
-            const aktif = path === href || (href !== "/" && path.startsWith(href));
+          {mobilOgeler(links).map((item, i) => {
+            const gecikme = { transitionDelay: open ? `${80 + i * 45}ms` : "0ms" };
+            if (item.baslik) {
+              return (
+                <p
+                  key={item.label}
+                  className={`border-b border-white/[0.07] pb-2 pt-6 text-[0.68rem] font-bold uppercase tracking-[0.22em] text-altinacik transition-all duration-500 ease-yumusak ${
+                    open ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"
+                  }`}
+                  style={gecikme}
+                >
+                  {item.label}
+                </p>
+              );
+            }
+            const aktif = sayfaAktif(path, item.href);
             return (
               <Link
-                key={href}
-                href={href}
-                className={`flex items-center justify-between border-b border-white/[0.07] py-4 font-display text-2xl transition-all duration-500 ease-yumusak ${
-                  aktif ? "text-altinparlak" : "text-fildisi/90"
-                } ${open ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"}`}
-                style={{ transitionDelay: open ? `${80 + i * 45}ms` : "0ms" }}
+                key={item.href}
+                href={item.href}
+                className={`flex items-center justify-between border-b border-white/[0.07] py-4 font-display transition-all duration-500 ease-yumusak ${
+                  item.alt ? "pl-1 text-xl" : "text-2xl"
+                } ${aktif ? "text-altinparlak" : "text-fildisi/90"} ${
+                  open ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"
+                }`}
+                style={gecikme}
               >
-                {label}
+                {item.label}
                 <ArrowUpRight className="h-5 w-5 text-altinacik/70" aria-hidden />
               </Link>
             );

@@ -126,6 +126,38 @@
   .desen-acik {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Cg fill='none' stroke='%239C7A43' stroke-opacity='.07' stroke-width='1'%3E%3Cpath d='M32 4l8 20 20 8-20 8-8 20-8-20-20-8 20-8z'/%3E%3Cpath d='M12 12h40v40H12z' transform='rotate(45 32 32)'/%3E%3C/g%3E%3C/svg%3E");
   }
+
+  /* ---- Yönetim formu ---- */
+  .yonetim-kutu {
+    @apply space-y-5 rounded-[1.25rem] border border-cizgi bg-kagit p-4 shadow-kart sm:p-6;
+  }
+  .yonetim-kutu > .grid > * { min-width: 0; }
+  .yonetim-etiket {
+    @apply mb-1.5 block text-[0.82rem] font-semibold leading-snug text-cam;
+  }
+  .yonetim-alan {
+    @apply box-border block w-full min-w-0 max-w-full rounded-xl border border-cizgi bg-white px-3.5 py-2.5 text-sm leading-normal text-murekkep;
+    @apply outline-none transition duration-200 placeholder:text-gri/60;
+    @apply focus:border-altin focus:ring-2 focus:ring-altin/25;
+  }
+  textarea.yonetim-alan { @apply min-h-[6.5rem] leading-relaxed; }
+  select.yonetim-alan {
+    @apply cursor-pointer appearance-none bg-no-repeat pr-10;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%235D6575' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-position: right 0.85rem center;
+    background-size: 1rem;
+  }
+  .flex > .yonetim-alan { width: auto; flex: 1 1 0%; }
+  .yonetim-ipucu { @apply mt-1.5 block text-xs leading-relaxed text-gri; }
+  .yonetim-birincil {
+    @apply inline-flex min-h-9 items-center justify-center rounded-lg bg-cam px-3 py-1.5 text-sm font-semibold text-fildisi transition-colors hover:bg-camderin;
+  }
+  .yonetim-eylem {
+    @apply inline-flex min-h-9 items-center justify-center rounded-lg border border-cizgi bg-white px-3 py-1.5 text-sm font-semibold text-cam transition-colors hover:border-cam;
+  }
+  .yonetim-tehlike {
+    @apply inline-flex min-h-9 items-center justify-center rounded-lg px-3 py-1.5 text-sm font-semibold text-red-700 transition-colors hover:bg-red-50;
+  }
 }
 
 @layer utilities {

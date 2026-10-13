@@ -20,7 +20,7 @@ import {
   Users,
 } from "lucide-react";
 import { getPackageBySlug, getPackages, parseJson } from "@/lib/db";
-import { formatDate, formatPrice, hamGorsel, waLink, telLink, site } from "@/lib/site";
+import { formatDate, formatPrice, hamGorsel, kategoriBilgi, waLink, telLink, site } from "@/lib/site";
 import JsonLd from "@/components/JsonLd";
 import { abs, agencyId, breadcrumbLd, sayfaMeta } from "@/lib/seo";
 import { WaIcon } from "@/components/Header";
@@ -31,11 +31,14 @@ export const dynamic = "force-dynamic";
 export async function generateMetadata({ params }) {
   const p = await getPackageBySlug(params.slug);
   if (!p) return {};
-  const tur = p.category === "hac" ? "hac turu" : "umre turu";
+  const bilgi = kategoriBilgi(p.category);
+  const tur = bilgi.tur;
   const title = p.seo_title || `${p.name} | ${p.nights} Gece ${p.days} Gün`;
   const description =
     p.seo_desc ||
-    `${p.name}: ${p.days ? `${p.days} gün` : "program"}, Mekke ve Medine konaklamalı ${tur}. Kayıt için Dört Bucak Tur.`;
+    (p.category === "kultur"
+      ? `${p.name}: tarihe ve doğaya yolculuk. Kayıt için Dört Bucak Tur.`
+      : `${p.name}: ${p.days ? `${p.days} gün` : "program"}, Mekke ve Medine konaklamalı ${tur}. Kayıt için Dört Bucak Tur.`);
   return sayfaMeta({
     title,
     description,
@@ -66,8 +69,7 @@ export default async function PackageDetail({ params }) {
   const itinerary = parseJson(p.itinerary);
   const documents = parseJson(p.documents);
   const waMsg = `Merhaba, ${p.name} hakkında bilgi almak istiyorum.`;
-  const categoryHref = p.category === "hac" ? "/hac-turlari" : "/umre-turlari";
-  const categoryName = p.category === "hac" ? "Hac Turları" : "Umre Turları";
+  const { href: categoryHref, sayfa: categoryName, etiket: kategoriEtiket } = kategoriBilgi(p.category);
 
   const rooms = [
     ["2 kişilik oda", p.price_double],
@@ -108,7 +110,7 @@ export default async function PackageDetail({ params }) {
         description: p.short_desc || p.long_desc,
         url: sayfa,
         ...(p.cover_image ? { image: abs(p.cover_image) } : {}),
-        touristType: p.category === "hac" ? "Hac" : "Umre",
+        touristType: kategoriEtiket,
         ...(p.start_date ? { startDate: p.start_date } : {}),
         ...(p.end_date ? { endDate: p.end_date } : {}),
         itinerary: {
@@ -192,7 +194,7 @@ export default async function PackageDetail({ params }) {
 
           <div className="mt-5 flex flex-wrap items-center gap-2">
             <span className="rounded-full bg-fildisi/95 px-3 py-1 text-sm font-semibold text-cam shadow-sm">
-              {p.category === "hac" ? "Hac" : "Umre"}
+              {kategoriEtiket}
             </span>
             {p.label && <span className="etiket !border-altinacik/40 !bg-altin/20 !text-altinparlak">{p.label}</span>}
             {p.quota_status === "az" && (

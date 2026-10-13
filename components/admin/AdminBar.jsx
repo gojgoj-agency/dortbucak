@@ -1,12 +1,15 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ArrowUpRight, Images, LogOut, Package } from "lucide-react";
+import { ArrowUpRight, CircleHelp, Compass, Images, LogOut, Package, ScrollText } from "lucide-react";
 import { logoutAction } from "@/app/admin/actions";
 
 const links = [
   { href: "/admin/paketler", label: "Paketler", hint: "Programlar ve fiyatlar", icon: Package },
   { href: "/admin/slider", label: "Slider", hint: "Ana sayfa vitrini", icon: Images },
+  { href: "/admin/sss", label: "SSS", hint: "Sık sorulan sorular", icon: CircleHelp },
+  { href: "/admin/ilkelerimiz", label: "İlkelerimiz", hint: "Sayfa maddeleri", icon: ScrollText },
+  { href: "/admin/kisiye-ozel", label: "Kişiye özel", hint: "Metin, görsel ve kartlar", icon: Compass },
 ];
 
 function Mark({ light = false }) {
@@ -44,11 +47,11 @@ export default function AdminBar({ username = "Yönetici" }) {
           </Link>
         </div>
 
-        <nav className="flex flex-1 flex-col gap-1 px-3" aria-label="Yönetim menüsü">
+        <nav className="flex min-h-0 flex-1 flex-col gap-1 overflow-y-auto px-3" aria-label="Yönetim menüsü">
           {links.map(({ href, label, hint, icon: Icon }) => {
             const aktif = aktifMi(path, href);
             return (
-              <Link
+              <a
                 key={href}
                 href={href}
                 aria-current={aktif ? "page" : undefined}
@@ -67,7 +70,7 @@ export default function AdminBar({ username = "Yönetici" }) {
                   <span className="block text-sm font-semibold">{label}</span>
                   <span className={`block text-xs ${aktif ? "text-fildisi/60" : "text-fildisi/40"}`}>{hint}</span>
                 </span>
-              </Link>
+              </a>
             );
           })}
         </nav>
@@ -129,7 +132,7 @@ export default function AdminBar({ username = "Yönetici" }) {
           {links.map(({ href, label, icon: Icon }) => {
             const aktif = aktifMi(path, href);
             return (
-              <Link
+              <a
                 key={href}
                 href={href}
                 aria-current={aktif ? "page" : undefined}
@@ -139,7 +142,7 @@ export default function AdminBar({ username = "Yönetici" }) {
               >
                 <Icon className="h-3.5 w-3.5" aria-hidden />
                 {label}
-              </Link>
+              </a>
             );
           })}
           <Link

@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import JsonLd from "@/components/JsonLd";
+import WaFloat from "@/components/WaFloat";
 import { site } from "@/lib/site";
 import { anahtarKelimeler, siteGraphLd } from "@/lib/seo";
 import favicon from "./faviconV2.webp";
@@ -15,7 +16,7 @@ export const metadata = {
   metadataBase: new URL(site.url),
   title: { default: "Dört Bucak Tur | Ankara Hac ve Umre Turları", template: "%s | Dört Bucak Tur" },
   description:
-    "Ankara Keçiören merkezli Dört Bucak Tur ile rehberli hac ve umre programları. 14 günlük umre fiyatları; tarih ve kayıt için bize ulaşın.",
+    "Ankara merkezli Dört Bucak Tur ile rehberli hac ve umre programları. 14 günlük umre fiyatları; tarih ve kayıt için bize ulaşın.",
   applicationName: "Dört Bucak Tur",
   authors: [{ name: "Dört Bucak Tur", url: site.url }],
   creator: "Dört Bucak Tur",
@@ -65,6 +66,7 @@ export default function RootLayout({ children }) {
         <Header />
         <main id="icerik">{children}</main>
         <Footer />
+        <WaFloat />
       </body>
     </html>
   );

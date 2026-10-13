@@ -35,7 +35,7 @@ function Grup({ title, tone, items }) {
     <section className="mt-10">
       <div className="flex items-end justify-between gap-3">
         <div>
-          <p className="kicker">{tone === "hac" ? "Hac" : "Umre"}</p>
+          <p className="kicker">{tone === "hac" ? "Hac" : tone === "kultur" ? "Kültür" : "Umre"}</p>
           <h2 className="mt-1 text-2xl">{title}</h2>
         </div>
         <p className="text-sm text-gri">{items.length} paket</p>
@@ -150,8 +150,9 @@ export default async function AdminPackages({ searchParams }) {
   const ozet = [
     ["Toplam", all.length],
     ["Yayında", yayinda],
-    ["Hac", all.filter((p) => p.category === "hac").length],
     ["Umre", all.filter((p) => p.category === "umre").length],
+    ["Hac", all.filter((p) => p.category === "hac").length],
+    ["Kültür", all.filter((p) => p.category === "kultur").length],
   ];
 
   return (
@@ -159,7 +160,7 @@ export default async function AdminPackages({ searchParams }) {
       <PageHead
         kicker="İçerik"
         title="Paketler"
-        description="Hac ve umre programlarını sıralayın, yayınlayın veya ana sayfada öne çıkarın."
+        description="Hac, umre ve kültür programlarını sıralayın, yayınlayın veya ana sayfada öne çıkarın."
         action={
           <Link href="/admin/paketler/yeni" className="btn-cam w-full sm:w-auto">
             <Plus className="h-4 w-4" aria-hidden />
@@ -169,7 +170,7 @@ export default async function AdminPackages({ searchParams }) {
       />
       {searchParams?.kayit ? <Flash>Paket kaydedildi. Sitedeki liste güncellendi.</Flash> : null}
 
-      <dl className="grid grid-cols-2 gap-3 lg:grid-cols-4">
+      <dl className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
         {ozet.map(([ad, deger]) => (
           <div key={ad} className="rounded-2xl border border-cizgi bg-kagit px-4 py-4 shadow-kart">
             <dt className="text-[0.68rem] font-bold uppercase tracking-[0.16em] text-altin">{ad}</dt>
@@ -178,8 +179,9 @@ export default async function AdminPackages({ searchParams }) {
         ))}
       </dl>
 
-      <Grup title="Hac paketleri" tone="hac" items={all.filter((p) => p.category === "hac")} />
       <Grup title="Umre paketleri" tone="umre" items={all.filter((p) => p.category === "umre")} />
+      <Grup title="Hac paketleri" tone="hac" items={all.filter((p) => p.category === "hac")} />
+      <Grup title="Kültür turları" tone="kultur" items={all.filter((p) => p.category === "kultur")} />
     </div>
   );
 }

@@ -7,3 +7,4 @@ public/uploads/*
 data/*.db-*
 .denetle*.mjs
 .DS_Store
+scripts/_shots/

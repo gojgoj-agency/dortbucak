@@ -5,10 +5,13 @@ export const dynamic = "force-dynamic";
 
 const statikSayfalar = [
   ["", "weekly", 1],
-  ["/hac-turlari", "daily", 0.9],
   ["/umre-turlari", "daily", 0.9],
+  ["/hac-turlari", "daily", 0.9],
+  ["/kultur-turlari", "daily", 0.9],
+  ["/kisiye-ozel-turlar", "daily", 0.9],
   ["/sss", "monthly", 0.6],
   ["/hakkimizda", "monthly", 0.5],
+  ["/ilkelerimiz", "monthly", 0.5],
   ["/iletisim", "monthly", 0.5],
 ];
 

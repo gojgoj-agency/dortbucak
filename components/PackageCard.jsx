@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowUpRight, CalendarDays, Check, MoonStar } from "lucide-react";
-import { formatDate, formatPrice, hamGorsel, waLink } from "@/lib/site";
+import { formatDate, formatPrice, hamGorsel, kategoriBilgi, waLink } from "@/lib/site";
 import { parseJson } from "@/lib/json";
 import { WaIcon } from "./SocialLinks";
 
@@ -13,7 +13,7 @@ export default function PackageCard({ p, oncelikli = false }) {
   const highlights = parseJson(p.highlights).slice(0, 3);
   const quota = quotaText[p.quota_status];
   const href = `/paket/${p.slug}`;
-  const hac = p.category === "hac";
+  const etiket = kategoriBilgi(p.category).etiket;
 
   const tarih = p.start_date
     ? `${formatDate(p.start_date)} – ${formatDate(p.end_date)}`
@@ -39,7 +39,7 @@ export default function PackageCard({ p, oncelikli = false }) {
         <div className="absolute inset-x-4 top-4 flex items-start justify-between gap-2">
           <span className="inline-flex items-center gap-1.5 rounded-full border border-white/25 bg-camgece/45 px-3 py-1 text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-altinparlak backdrop-blur-md">
             <span className="h-1.5 w-1.5 rounded-full bg-altinacik" aria-hidden />
-            {hac ? "Hac" : "Umre"}
+            {etiket}
           </span>
           {quota && (
             <span

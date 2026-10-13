@@ -2,9 +2,9 @@ import Image from "next/image";
 import Link from "next/link";
 
 const olculer = {
-  kucuk: "h-[5.75rem] w-[5.75rem]",
-  orta: "h-[6rem] w-[8.5rem]",
-  buyuk: "h-20 w-24",
+  kucuk: "h-[4.5rem] w-[6.0rem]",
+  orta: "h-[4.5rem] w-[6.5rem]",
+  buyuk: "h-[6rem] w-[8.5rem]",
 };
 
 export default function Logo({ className = "", boyut = "orta" }) {

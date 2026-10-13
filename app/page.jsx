@@ -4,20 +4,19 @@ import {
   ArrowRight,
   ArrowUpRight,
   BookOpenText,
-  Building2,
-  CalendarRange,
+  Compass,
   HeartHandshake,
-  Landmark,
+  Hotel,
   MessagesSquare,
   Phone,
   ShieldCheck,
-  UsersRound,
+  Sparkles,
 } from "lucide-react";
 import HomeSlider from "@/components/HomeSlider";
 import PackageCard from "@/components/PackageCard";
 import Faq from "@/components/Faq";
 import Reveal, { RevealGrup, RevealOge } from "@/components/Reveal";
-import { getPackages, getSliders } from "@/lib/db";
+import { getFaqs, getPackages, getSliders } from "@/lib/db";
 import { odaFarki, site, waLink, telLink } from "@/lib/site";
 import { WaIcon } from "@/components/SocialLinks";
 import JsonLd from "@/components/JsonLd";
@@ -30,16 +29,16 @@ export const metadata = {
   openGraph: {
     title: "Dört Bucak Tur | Ankara Hac ve Umre Turları",
     description:
-      "Ankara Keçiören merkezli rehberli hac ve umre programları. 14 günlük umre fiyatları ve Mekke–Medine konaklama.",
+      "Ankara merkezli rehberli hac ve umre programları. 14 günlük umre fiyatları ve Mekke–Medine konaklama.",
     url: "/",
   },
 };
 
 const guvenceler = [
-  [UsersRound, "Rehber eşliğinde", "Din görevlisi ve rehberle birlikte"],
-  [Landmark, "Mekke & Medine", "Her programda iki kutsal şehir"],
-  [CalendarRange, "14 günlük umre", "Yıl boyu farklı dönemler"],
-  [Building2, "Ankara ofisi", "Keçiören’de yüz yüze görüşme"],
+  [Sparkles, "Maneviyatla dolu yolculuklar", "İbadetler bilerek ve huzurla"],
+  [ShieldCheck, "Güvenli organizasyon", "Her aşaması planlı ve şeffaf"],
+  [Compass, "Profesyonel rehberlik", "Din görevlisi ve rehber eşliğinde"],
+  [Hotel, "Konforlu hizmet", "Konaklama ve ulaşımda özen"],
 ];
 
 const donemler = [
@@ -51,20 +50,36 @@ const donemler = [
 
 const kategoriler = [
   {
-    href: "/hac-turlari",
-    kicker: "Ömürde bir kez",
-    baslik: "Hac Turları",
-    metin: "Hac programlarımızı, tarihlerini ve Mekke–Medine konaklama planlarını inceleyin.",
-    gorsel: "/images/paket-hac-1.webp",
-    alt: "Mekke ve Medine hac programı",
-  },
-  {
     href: "/umre-turlari",
     kicker: "Yıl boyu",
     baslik: "Umre Turları",
     metin: "14 günlük, rehberli umre programlarımıza ve dönem fiyatlarına göz atın.",
     gorsel: "/images/paket-umre-2.webp",
     alt: "Mekke ve Medine umre programı",
+  },
+  {
+    href: "/hac-turlari",
+    kicker: "Ömürde bir kez",
+    baslik: "Hac Programları",
+    metin: "Hac programlarımızı, tarihlerini ve Mekke–Medine konaklama planlarını inceleyin.",
+    gorsel: "/images/paket-hac-1.webp",
+    alt: "Mekke ve Medine hac programı",
+  },
+  {
+    href: "/kultur-turlari",
+    kicker: "Tarihe ve doğaya",
+    baslik: "Kültür Turları",
+    metin: "Tarihi keşif, doğayla iç içe rotalar ve kültürel deneyimle hazırlanan yolculuklar.",
+    gorsel: "/images/paket-umre-3.webp",
+    alt: "Kültür turları: tarihe ve doğaya yolculuk",
+  },
+  {
+    href: "/kisiye-ozel-turlar",
+    kicker: "Size göre",
+    baslik: "Kişiye Özel Turlar",
+    metin: "Tarih, süre ve güzergâhı birlikte belirlediğimiz programlar.",
+    gorsel: "/images/paket-umre-3.webp",
+    alt: "Kişiye özel tur planı",
   },
 ];
 
@@ -80,12 +95,6 @@ const surec = [
   ["Program seçimi", "Tarih, süre ve konaklama tercihinize göre hac veya umre programınızı seçiyorsunuz."],
   ["Hazırlık", "Gerekli belgeler, sağlık ve yolculuk hazırlıkları konusunda adım adım bilgilendiriyoruz."],
   ["Yolculuk", "Rehberlerimiz eşliğinde ibadetlerinizi huzurla yerine getiriyorsunuz."],
-];
-
-const sssSecme = [
-  ["Umre programları kaç gün sürüyor?", "İlan edilen umre programlarımız 14 gündür. Çıkış tarihi seçtiğiniz döneme göre değişir."],
-  ["3 ve 2 kişilik oda farkı ne kadar?", "İlan edilen fiyat 4 kişilik odada kişi başıdır. 3 ve 2 kişilik odalarda kişi başı 75 dolar, Ramazan umrelerinde 100 dolar eklenir."],
-  ["Yolculuk boyunca rehber eşlik ediyor mu?", "Evet, programlarımızda din görevlisi ve rehber eşliğinde hareket edilir; ibadetler topluca yerine getirilir."],
 ];
 
 function BolumBasligi({ kicker, baslik, vurgu, aciklama, acik = false, id, hizali = "orta" }) {
@@ -116,6 +125,9 @@ function BolumBasligi({ kicker, baslik, vurgu, aciklama, acik = false, id, hizal
 export default async function Home() {
   const sliders = await getSliders();
   const featured = (await getPackages({ featured: true })).slice(0, 6);
+  const soruKayitlari = await getFaqs(true);
+  const oneCikan = soruKayitlari.filter((s) => s.featured);
+  const sssSecme = (oneCikan.length ? oneCikan : soruKayitlari.slice(0, 3)).map((s) => [s.question, s.answer]);
   const programListesi = featured.length
     ? {
         "@context": "https://schema.org",
@@ -138,22 +150,22 @@ export default async function Home() {
       {/* Güvence şeridi — slider’ın alt kenarına biner */}
       <section className={`site-container relative z-30 ${sliders.length ? "-mt-24" : "mt-12"}`} aria-label="Öne çıkanlar">
         <Reveal>
-          <div className="grid overflow-hidden rounded-[1.5rem] border border-white/10 bg-camderin/90 shadow-derin backdrop-blur-xl sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid overflow-hidden rounded-[1.5rem] border border-white/10 bg-camderin/90 shadow-derin backdrop-blur-xl sm:grid-cols-2 xl:grid-cols-4">
             {guvenceler.map(([Ikon, t, d], i) => (
               <div
                 key={t}
                 className={`group flex items-center gap-4 px-6 py-6 lg:px-7 lg:py-7 ${
                   i > 0 ? "border-t border-white/[0.07] sm:border-t-0" : ""
                 } ${i % 2 === 1 ? "sm:border-l sm:border-white/[0.07]" : ""} ${
-                  i > 1 ? "sm:border-t sm:border-white/[0.07] lg:border-t-0" : ""
-                } ${i > 0 ? "lg:border-l lg:border-white/[0.07]" : ""}`}
+                  i > 1 ? "sm:border-t sm:border-white/[0.07] xl:border-t-0" : ""
+                } ${i > 0 ? "xl:border-l xl:border-white/[0.07]" : ""}`}
               >
                 <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-altinacik/30 bg-altinacik/[0.08] text-altinacik transition-colors duration-500 group-hover:bg-altinacik group-hover:text-camgece">
                   <Ikon className="h-5 w-5" aria-hidden />
                 </span>
                 <div>
-                  <p className="font-display text-[1.1rem] text-fildisi">{t}</p>
-                  <p className="mt-0.5 text-sm text-fildisi/55">{d}</p>
+                  <p className="font-display text-[1.05rem] leading-tight text-fildisi">{t}</p>
+                  <p className="mt-1 text-sm leading-snug text-fildisi/55">{d}</p>
                 </div>
               </div>
             ))}
@@ -196,10 +208,11 @@ export default async function Home() {
           <Reveal yon="sag" className="lg:col-span-6">
             <p className="kicker">Dört Bucak Tur</p>
             <h2 id="karsilama" className="baslik-buyuk mt-5">
-              Kutsal topraklara <span className="italic text-altin">huzurla</span> ve güvenle
+              Her Detayda Özen, Her Adımda Güven,{" "}
+              <span className="italic text-altin">Her Anlamda Huzur</span>
             </h2>
             <p className="mt-6 text-[1.05rem] leading-relaxed text-gri">
-              Ankara Keçiören’deki ofisimizden hac ve umre yolculuklarınızı planlıyoruz. Programlarımızda
+              Ankara’daki ofisimizden hac, umre, kültür ve kişiye özel yolculuklarınızı planlıyoruz. Programlarımızda
               din görevlisi ve rehber eşliğinde hareket edilir; ibadetler bilerek, topluca ve usulüne uygun
               biçimde yerine getirilir.
             </p>
@@ -245,9 +258,29 @@ export default async function Home() {
             kicker="14 günlük umre"
             baslik="Dönem"
             vurgu="fiyatları"
-            aciklama="Tutarlar 4 kişilik odada kişi başıdır. Çıkış tarihi ve kontenjan için bize yazın."
+            aciklama="Tutarlar 4 kişilik odada kişi başıdır."
             acik
           />
+          <p className="mt-3 text-center">
+            <a
+              href={waLink("Merhaba, size uygun umre turunu birlikte belirlemek istiyorum.")}
+              target="_blank"
+              rel="noopener noreferrer"
+              title="WhatsApp ile yazın"
+              className="group text-[1.05rem] font-semibold text-altinacik transition-colors hover:text-fildisi"
+            >
+              <span className="underline decoration-altinacik/45 underline-offset-4 group-hover:decoration-fildisi/40">
+                Size uygun umre turunu birlikte belirlemek için bize ulaşın
+              </span>
+              <span
+                className="ml-2 inline-flex h-6 w-6 -translate-y-px items-center justify-center rounded-full bg-[#25D366] align-middle text-white shadow-[0_0_0_3px_rgba(37,211,102,0.22)] transition-transform duration-300 group-hover:scale-110"
+                aria-hidden
+              >
+                <WaIcon className="h-3.5 w-3.5" />
+              </span>
+              <span className="sr-only">WhatsApp ile yazın</span>
+            </a>
+          </p>
           <RevealGrup className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4" aralik={0.08}>
             {donemler.map((d) => (
               <RevealOge key={d.ad} className="h-full">
@@ -275,9 +308,9 @@ export default async function Home() {
                     <span className="altin-yazi font-display text-[3rem] leading-none">{d.fiyat}</span>
                   </p>
                   <p className="mb-8 mt-2 text-sm text-fildisi/50">4 kişilik odada kişi başı</p>
-                  <span className="mt-auto flex items-center justify-between border-t border-white/[0.08] pt-5 text-sm font-semibold text-fildisi/85">
-                    <span>Programı incele</span>
-                    <span className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 transition-all duration-500 group-hover:rotate-45 group-hover:border-altinacik group-hover:bg-altinacik group-hover:text-camgece">
+                  <span className="mt-auto flex items-center justify-between gap-3 border-t border-white/[0.08] pt-5 text-sm font-semibold text-fildisi/85">
+                    <span>{d.ramazan ? "Hac programını incele" : "Programı incele"}</span>
+                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/15 transition-all duration-500 group-hover:rotate-45 group-hover:border-altinacik group-hover:bg-altinacik group-hover:text-camgece">
                       <ArrowUpRight className="h-4 w-4" aria-hidden />
                     </span>
                   </span>
@@ -291,19 +324,19 @@ export default async function Home() {
 
       {/* Kategoriler */}
       <section className="site-container pt-24 md:pt-28" aria-label="Kategoriler">
-        <RevealGrup className="grid gap-6 md:grid-cols-2">
+        <RevealGrup className="grid gap-6 sm:grid-cols-2">
           {kategoriler.map((k) => (
             <RevealOge key={k.href}>
               <Link
                 href={k.href}
-                className="grup-yakinlas group relative flex h-[26rem] items-end overflow-hidden rounded-[2rem] shadow-kartust md:h-[30rem]"
+                className="grup-yakinlas group relative flex h-[24rem] items-end overflow-hidden rounded-[2rem] shadow-kartust md:h-[28rem]"
               >
                 <Image
                   src={k.gorsel}
                   alt={k.alt}
                   fill
                   sizes="(max-width: 768px) 92vw, 600px"
-                  className="gorsel-yakinlas object-cover"
+                  className={`gorsel-yakinlas object-cover ${k.konum || ""}`}
                 />
                 <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-camgece via-camgece/45 to-transparent" aria-hidden />
                 <div className="pointer-events-none absolute inset-4 rounded-[1.5rem] border border-white/15 transition-colors duration-500 group-hover:border-altinacik/50" aria-hidden />
@@ -332,12 +365,14 @@ export default async function Home() {
               kicker="Programlarımız"
               baslik="Öne çıkan"
               vurgu="programlar"
-              aciklama="Tarih, süre ve konaklama planlarıyla hazırladığımız hac ve umre programlarından bir seçki."
+              aciklama="Tarih, süre ve konaklama planlarıyla hazırladığımız programlardan bir seçki."
               hizali="sol"
             />
             <Reveal className="flex shrink-0 gap-3">
               <Link href="/umre-turlari" className="btn-cerceve !px-5 !py-2.5 text-sm">Umre turları</Link>
-              <Link href="/hac-turlari" className="btn-cerceve !px-5 !py-2.5 text-sm">Hac turları</Link>
+              <Link href="/hac-turlari" className="btn-cerceve !px-5 !py-2.5 text-sm">Hac programları</Link>
+              <Link href="/kultur-turlari" className="btn-cerceve !px-5 !py-2.5 text-sm">Kültür turları</Link>
+              <Link href="/kisiye-ozel-turlar" className="btn-cerceve !px-5 !py-2.5 text-sm">Kişiye özel</Link>
             </Reveal>
           </div>
           <RevealGrup className="mt-12 grid gap-7 sm:grid-cols-2 lg:grid-cols-3" aralik={0.09}>

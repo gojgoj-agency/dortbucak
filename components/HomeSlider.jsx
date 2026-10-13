@@ -50,8 +50,6 @@ export default function HomeSlider({ slides }) {
 
   if (!slides.length) return null;
 
-  const sayi = (n) => String(n).padStart(2, "0");
-
   return (
     <section
       aria-label="Tanıtım"
@@ -66,7 +64,7 @@ export default function HomeSlider({ slides }) {
               className="relative min-w-0 flex-[0_0_100%]"
               role="group"
               aria-roledescription="slide"
-              aria-label={`${i + 1} / ${slides.length}`}
+              aria-label={`${slaytAdi(s)}, ${i + 1} / ${slides.length}`}
             >
               <div className="absolute inset-0 overflow-hidden">
                 <picture>
@@ -145,21 +143,23 @@ export default function HomeSlider({ slides }) {
         <div className="pointer-events-none absolute inset-x-0 bottom-28 z-20 sm:bottom-32">
           <div className="site-container flex items-end justify-between gap-6">
             {/* Bölümlü ilerleme göstergesi */}
-            <div className="pointer-events-auto flex w-full max-w-md items-center gap-3">
-              {slides.map((s, k) => (
+            <div className="pointer-events-auto flex w-full max-w-xl items-end gap-2 sm:gap-4">
+              {slides.map((s, k) => {
+                const ad = slaytAdi(s);
+                return (
                 <button
                   key={s.id}
                   onClick={() => git(k)}
-                  aria-label={`${k + 1}. görsele geç`}
+                  aria-label={`${ad} görseline geç`}
                   aria-current={k === aktif}
-                  className="group flex-1 py-3 text-left"
+                  className="group min-w-0 flex-1 py-3 text-left"
                 >
                   <span
-                    className={`mb-2 block font-display text-sm transition-colors ${
+                    className={`mb-2 block truncate font-display text-[0.95rem] transition-colors sm:text-lg ${
                       k === aktif ? "text-altinparlak" : "text-fildisi/45 group-hover:text-fildisi/80"
                     }`}
                   >
-                    {sayi(k + 1)}
+                    {ad}
                   </span>
                   <span className="relative block h-px w-full overflow-hidden bg-white/20">
                     {k === aktif && (
@@ -173,7 +173,8 @@ export default function HomeSlider({ slides }) {
                     )}
                   </span>
                 </button>
-              ))}
+                );
+              })}
             </div>
 
             <div className="pointer-events-auto hidden shrink-0 items-center gap-2 md:flex">
@@ -198,6 +199,20 @@ function OkDugme({ yon, onClick }) {
       <Ikon className="h-5 w-5" />
     </button>
   );
+}
+
+function slaytAdi(s) {
+  const link = String(s.button_link || "").toLocaleLowerCase("tr-TR");
+  if (link.includes("kisiye-ozel")) return "Kişisel";
+  if (link.includes("kultur")) return "Kültür";
+  if (link.includes("umre")) return "Umre";
+  if (link.includes("hac")) return "Hac";
+  const metin = `${s.title || ""} ${s.kicker || ""} ${s.description || ""}`.toLocaleLowerCase("tr-TR");
+  if (metin.includes("kişisel") || metin.includes("kisiye")) return "Kişisel";
+  if (metin.includes("kültür") || metin.includes("kultur")) return "Kültür";
+  if (metin.includes("umre")) return "Umre";
+  if (metin.includes("hac")) return "Hac";
+  return s.kicker || s.title || "Tur";
 }
 
 /** Kullanıcı "hareketi azalt" dediyse otomatik geçişi kapatırız. */

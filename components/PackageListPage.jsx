@@ -11,6 +11,7 @@ import { site, telLink, waLink } from "@/lib/site";
 const bandGorseli = {
   hac: "/images/slider-2-masaustu.webp",
   umre: "/images/slider-1-masaustu.webp",
+  kultur: "/images/kultur-manzara.webp",
 };
 
 export default async function PackageListPage({ category, title, intro }) {

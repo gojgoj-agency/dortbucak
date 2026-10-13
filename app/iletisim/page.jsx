@@ -8,7 +8,7 @@ import { breadcrumbLd, sayfaMeta } from "@/lib/seo";
 export const metadata = sayfaMeta({
   title: "İletişim",
   description:
-    "Dört Bucak Tur iletişim: hac ve umre için telefon, WhatsApp, e-posta ve Keçiören/Ankara adresi.",
+    "Dört Bucak Tur iletişim: hac ve umre için telefon, WhatsApp, e-posta ve Ankara adresi.",
   path: "/iletisim",
 });
 
@@ -64,7 +64,7 @@ export default function Page() {
           </nav>
           <div className="mt-8 grid items-end gap-8 lg:grid-cols-[minmax(0,1fr)_18rem]">
             <div>
-              <p className="kicker">Keçiören ofisi</p>
+              <p className="kicker">Ankara ofisi</p>
               <h1 className="mt-4 text-4xl md:text-5xl">Bize ulaşın</h1>
               <p className="olcu mt-5 text-lg text-gri">
                 Hac ve umre programları, tarih ve kayıt için ofisimizden veya telefonla

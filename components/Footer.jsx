@@ -18,7 +18,7 @@ const programlar = [
   ["/umre-turlari", "Umre Turları"],
   ["/hac-turlari", "Hac Programları"],
   ["/kultur-turlari", "Kültür Turları"],
-  ["/kisiye-ozel-turlar", "Kişiye Özel Turlar"],
+  ["/kisiye-ozel-turlar", "Özel Turlar"],
   ["/paket/ekim-kasim-umresi", "Ekim – Kasım Umresi"],
   ["/paket/aralik-ocak-umresi", "Aralık – Ocak Umresi"],
   ["/paket/tam-ramazan-umresi", "Ramazan Umresi"],
@@ -49,7 +49,7 @@ export default function Footer() {
   return (
     <footer className="relative mt-24 overflow-hidden bg-camgece text-fildisi/80">
       <div className="desen pointer-events-none absolute inset-0 opacity-70" aria-hidden />
-      <div className="pointer-events-none absolute -top-40 left-1/2 h-80 w-[60rem] -translate-x-1/2 rounded-full bg-altin/10 blur-3xl" aria-hidden />
+      <div className="pointer-events-none absolute inset-x-0 -top-40 h-80 bg-[radial-gradient(ellipse_at_center,rgba(254,10,0,0.16),transparent_68%)]" aria-hidden />
       <div className="relative h-px bg-gradient-to-r from-transparent via-altinacik/70 to-transparent" aria-hidden />
 
       {/* Çağrı bandı */}
@@ -85,7 +85,7 @@ export default function Footer() {
           <Logo boyut="buyuk" />
           <p className="mt-6 max-w-sm font-display text-xl leading-snug text-fildisi">{site.slogan}</p>
           <p className="mt-3 max-w-sm text-sm leading-relaxed text-fildisi/60">
-            Ankara merkezli hac, umre, kültür ve kişiye özel turlar. Din görevlisi ve rehber
+            Ankara merkezli hac, umre, kültür ve özel turlar. Din görevlisi ve rehber
             eşliğinde programlar; kültür rotalarında tarihe ve doğaya yolculuk.
           </p>
           <div className="mt-6 inline-flex items-center gap-3 rounded-full border border-altinacik/25 bg-white/[0.03] px-4 py-2 text-xs text-fildisi/70">

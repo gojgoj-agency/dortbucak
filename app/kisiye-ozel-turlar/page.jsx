@@ -10,16 +10,16 @@ import { site, telLink, waLink } from "@/lib/site";
 import { breadcrumbLd, sayfaMeta } from "@/lib/seo";
 
 export const metadata = sayfaMeta({
-  title: "Kişiye Özel Turlar",
+  title: "Özel Turlar",
   description:
-    "Dört Bucak Tur kişiye özel turlar: tarih, süre, grup ve güzergâh birlikte belirlenir. Ankara ofisinden hac, umre veya kültür programı için bize ulaşın.",
+    "Dört Bucak Tur özel turlar: tarih, süre, grup ve güzergâh birlikte belirlenir. Ankara ofisinden hac, umre veya kültür programı için bize ulaşın.",
   path: "/kisiye-ozel-turlar",
 });
 
 const ikonlar = { CalendarRange, Users, Route, Hotel, Compass, MapPin, Heart, Phone };
 const varsayilanKapak = "/images/slider-2-masaustu.webp";
 const varsayilanYan = "/images/paket-umre-3.webp";
-const wa = waLink("Merhaba, kişiye özel bir tur planlamak istiyorum.");
+const wa = waLink("Merhaba, özel bir tur planlamak istiyorum.");
 
 export const dynamic = "force-dynamic";
 
@@ -35,15 +35,15 @@ export default async function Page() {
           "@context": "https://schema.org",
           ...breadcrumbLd([
             ["Ana Sayfa", "/"],
-            ["Kişiye Özel Turlar", "/kisiye-ozel-turlar"],
+            ["Özel Turlar", "/kisiye-ozel-turlar"],
           ]),
         }}
       />
 
       <SayfaKapak
         kicker="Size göre"
-        baslik="Kişiye özel"
-        vurgu="turlar"
+        baslik="Özel"
+        vurgu="Turlar"
         aciklama={sayfa.lead || "Hazır bir tarih listesine bağlı kalmadan; süre, grup ve güzergâhı birlikte kurduğumuz programlar."}
         gorsel={kapak}
       />
@@ -55,7 +55,7 @@ export default async function Page() {
               <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] shadow-derin">
                 <Image
                   src={yan}
-                  alt="Kişiye özel tur planından bir görünüm"
+                  alt="Özel tur planından bir görünüm"
                   fill
                   sizes="(max-width: 1024px) 90vw, 440px"
                   className="object-cover"
@@ -65,13 +65,13 @@ export default async function Page() {
             </div>
           </Reveal>
           <Reveal yon="sag">
-            <p className="kicker">Kişiye özel</p>
+            <p className="kicker">Özel Turlar</p>
             <h2 id="ozel-baslik" className="baslik-buyuk mt-5">
               Programı <span className="italic text-altin">birlikte</span> kuralım
             </h2>
             <div className="mt-7 space-y-4 text-[1.02rem] leading-relaxed text-gri">
               <p>
-                {sayfa.body_1 || "Kişiye özel turlarda çıkış günü, süre ve duraklar sizin takviminize göre belirlenir. Aile, arkadaş grubu veya kurum için ayrı bir program hazırlarız; dahil olan ve olmayan hizmetleri kayıttan önce yazılı olarak paylaşırız."}
+                {sayfa.body_1 || "Özel turlarda çıkış günü, süre ve duraklar sizin takviminize göre belirlenir. Aile, arkadaş grubu veya kurum için ayrı bir program hazırlarız; dahil olan ve olmayan hizmetleri kayıttan önce yazılı olarak paylaşırız."}
               </p>
               {sayfa.body_2 ? <p>{sayfa.body_2}</p> : (
                 <p>

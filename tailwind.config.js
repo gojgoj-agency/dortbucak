@@ -10,9 +10,11 @@ module.exports = {
         camacik: "#2B3C5F",  // açık lacivert
         fildisi: "#F7F3EC",  // fildişi zemin
         kagit: "#FFFDF9",    // kart zemini
-        altin: "#9C7A43",    // şampanya altını (açık zeminde metin)
-        altinacik: "#D2B582",
-        altinparlak: "#EEDFC0",
+        mavi: "#007BB6",
+        kirmizi: "#FE0A00",
+        altin: "#FE0A00",
+        altinacik: "#FF5C56",
+        altinparlak: "#FE0A00",
         murekkep: "#141B2B",
         gri: "#5D6575",
         cizgi: "#E7DFD1",
@@ -27,7 +29,7 @@ module.exports = {
         kart: "0 1px 2px rgba(11,20,40,.05), 0 10px 30px -14px rgba(11,20,40,.18)",
         kartust: "0 2px 6px rgba(11,20,40,.06), 0 34px 60px -28px rgba(11,20,40,.38)",
         derin: "0 50px 100px -45px rgba(7,13,27,.75)",
-        altinhale: "0 0 0 1px rgba(210,181,130,.45), 0 18px 40px -18px rgba(156,122,67,.55)",
+        altinhale: "0 0 0 1px rgba(254,10,0,.35), 0 18px 40px -18px rgba(254,10,0,.45)",
         lux: "inset 0 1px 0 rgba(255,255,255,.06), 0 30px 60px -30px rgba(0,0,0,.6)",
       },
       backgroundImage: {
@@ -35,8 +37,8 @@ module.exports = {
           "linear-gradient(to top, rgba(7,13,27,.95) 0%, rgba(7,13,27,.7) 30%, rgba(7,13,27,.45) 55%, rgba(7,13,27,.35) 75%, rgba(7,13,27,.65) 100%)",
         vinyet: "radial-gradient(120% 85% at 50% 45%, transparent 38%, rgba(7,13,27,.6) 100%)",
         "perde-kart": "linear-gradient(to top, rgba(7,13,27,.85) 0%, rgba(7,13,27,.25) 50%, rgba(7,13,27,.05) 100%)",
-        "altin-cizgi": "linear-gradient(90deg, transparent, #9C7A43 20%, #EEDFC0 50%, #9C7A43 80%, transparent)",
-        "altin-gradyan": "linear-gradient(135deg, #E9D3A6 0%, #C9A86C 45%, #A07E46 100%)",
+        "altin-cizgi": "linear-gradient(90deg, transparent, #FE0A00 20%, #FF5C56 50%, #FE0A00 80%, transparent)",
+        "altin-gradyan": "linear-gradient(135deg, #FF4D47 0%, #FE0A00 55%, #C90800 100%)",
         "hero-yan": "linear-gradient(90deg, rgba(7,13,27,.92) 0%, rgba(7,13,27,.72) 38%, rgba(7,13,27,.25) 70%, rgba(7,13,27,.1) 100%)",
       },
       keyframes: {

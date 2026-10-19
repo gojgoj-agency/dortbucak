@@ -9,7 +9,7 @@ const links = [
   { href: "/admin/slider", label: "Slider", hint: "Ana sayfa vitrini", icon: Images },
   { href: "/admin/sss", label: "SSS", hint: "Sık sorulan sorular", icon: CircleHelp },
   { href: "/admin/ilkelerimiz", label: "İlkelerimiz", hint: "Sayfa maddeleri", icon: ScrollText },
-  { href: "/admin/kisiye-ozel", label: "Kişiye özel", hint: "Metin, görsel ve kartlar", icon: Compass },
+  { href: "/admin/kisiye-ozel", label: "Özel Turlar", hint: "Metin, görsel ve kartlar", icon: Compass },
 ];
 
 function Mark({ light = false }) {

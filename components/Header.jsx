@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { ArrowUpRight, ChevronDown, Clock, Mail, MapPin, Phone } from "lucide-react";
 import { site, telLink, waLink } from "@/lib/site";
 import SocialLinks, { WaIcon } from "@/components/SocialLinks";
@@ -15,7 +15,7 @@ const turlar = {
     ["/umre-turlari", "Umre"],
     ["/hac-turlari", "Hac"],
     ["/kultur-turlari", "Kültür"],
-    ["/kisiye-ozel-turlar", "Kişiye özel turlar"],
+    ["/kisiye-ozel-turlar", "Özel Turlar"],
   ],
 };
 
@@ -148,6 +148,12 @@ export default function Header() {
   const [open, setOpen] = useState(false);
   const [kaydi, setKaydi] = useState(false);
   const path = usePathname();
+  const router = useRouter();
+
+  const anaSayfaya = (e) => {
+    if (e.target.closest("a, button, nav")) return;
+    router.push("/");
+  };
 
   useEffect(() => {
     // Eşikler farklı: başlık küçülünce sayfa kaydığı için tek eşik titreme yapar.
@@ -173,39 +179,41 @@ export default function Header() {
     <header className="sticky top-0 z-50">
       {/* Üst bilgi şeridi */}
       <div
-        className={`overflow-hidden bg-camgece text-[0.76rem] text-fildisi/70 transition-[max-height,opacity] duration-500 ease-yumusak ${
+        onClick={anaSayfaya}
+        className={`cursor-pointer overflow-hidden bg-camgece text-[0.76rem] text-fildisi/70 transition-[max-height,opacity] duration-500 ease-yumusak ${
           kaydi ? "max-h-0 opacity-0 lg:max-h-0" : "max-h-10 opacity-100"
         }`}
       >
-        <div className="site-container flex h-10 items-center justify-between gap-4">
+        <div className="site-container flex h-10 min-w-0 items-center justify-between gap-3">
           <div className="flex min-w-0 items-center gap-5">
             <span className="hidden items-center gap-2 whitespace-nowrap md:inline-flex">
-              <MapPin className="h-3.5 w-3.5 shrink-0 text-altinacik" aria-hidden />
+              <MapPin className="h-3.5 w-3.5 shrink-0 text-mavi" aria-hidden />
               Ankara
             </span>
             <span className="hidden items-center gap-2 whitespace-nowrap xl:inline-flex">
-              <Clock className="h-3.5 w-3.5 shrink-0 text-altinacik" aria-hidden />
+              <Clock className="h-3.5 w-3.5 shrink-0 text-mavi" aria-hidden />
               {site.hours}
             </span>
-            <a href={telLink()} className="inline-flex items-center gap-2 whitespace-nowrap transition-colors hover:text-altinparlak md:hidden">
-              <Phone className="h-3.5 w-3.5 shrink-0 text-altinacik" aria-hidden />
-              {site.phone}
+            <a href={telLink()} className="inline-flex min-w-0 items-center gap-2 transition-colors hover:text-altinparlak md:hidden">
+              <Phone className="h-3.5 w-3.5 shrink-0 text-mavi" aria-hidden />
+              <span className="truncate">{site.phone}</span>
             </a>
           </div>
           <div className="flex min-w-0 items-center gap-5">
             <a href={`mailto:${site.email}`} className="hidden min-w-0 items-center gap-2 transition-colors hover:text-altinparlak md:inline-flex">
-              <Mail className="h-3.5 w-3.5 shrink-0 text-altinacik" aria-hidden />
+              <Mail className="h-3.5 w-3.5 shrink-0 text-mavi" aria-hidden />
               <span className="truncate">{site.email}</span>
             </a>
             <span className="hidden h-3.5 w-px bg-white/15 md:block" aria-hidden />
-            <SocialLinks tone="bar" />
+            <SocialLinks tone="bar" className="shrink-0" />
           </div>
         </div>
       </div>
 
       {/* Ana menü */}
       <div
-        className={`relative border-b transition-all duration-500 ease-yumusak ${
+        onClick={anaSayfaya}
+        className={`relative cursor-pointer border-b transition-all duration-500 ease-yumusak ${
           kaydi
             ? "border-white/[0.06] bg-camderin/[0.92] shadow-[0_18px_40px_-24px_rgba(0,0,0,.8)] backdrop-blur-xl"
             : "border-white/[0.06] bg-camderin"
@@ -214,7 +222,7 @@ export default function Header() {
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-altinacik/50 to-transparent" aria-hidden />
         <div
           className={`site-container flex items-center justify-between gap-4 transition-[height] duration-500 ease-yumusak ${
-            kaydi ? "h-[6.75rem]" : "h-[8.5rem]"
+            kaydi ? "h-14" : "h-[4.5rem]"
           }`}
         >
           <Logo boyut={kaydi ? "kucuk" : "orta"} />
@@ -234,7 +242,7 @@ export default function Header() {
               href={telLink()}
               className="hidden items-center gap-3 text-left xl:flex"
             >
-              <span className="flex h-10 w-10 items-center justify-center rounded-full border border-altinacik/35 text-altinacik">
+              <span className="flex h-10 w-10 items-center justify-center rounded-full border border-mavi/60 text-mavi">
                 <Phone className="h-4 w-4" aria-hidden />
               </span>
               <span className="leading-tight">
@@ -252,7 +260,7 @@ export default function Header() {
               Bilgi Al
             </a>
             <button
-              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/15 text-fildisi transition-colors hover:border-altinacik hover:text-altinparlak lg:hidden"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-fildisi transition-colors hover:border-kirmizi hover:text-kirmizi lg:hidden"
               onClick={() => setOpen(!open)}
               aria-expanded={open}
               aria-controls="mobil-menu"
@@ -269,8 +277,8 @@ export default function Header() {
       {/* Mobil menü */}
       <div
         id="mobil-menu"
-        className={`fixed inset-x-0 bottom-0 z-40 bg-camgece transition-all duration-500 ease-yumusak lg:hidden ${
-          kaydi ? "top-[6.75rem]" : "top-[11rem]"
+        className={`fixed inset-x-0 bottom-0 z-40 overflow-x-clip bg-camgece transition-all duration-500 ease-yumusak lg:hidden ${
+          kaydi ? "top-14" : "top-[7rem]"
         } ${open ? "visible opacity-100" : "invisible opacity-0"}`}
       >
         <div className="desen absolute inset-0 opacity-60" aria-hidden />

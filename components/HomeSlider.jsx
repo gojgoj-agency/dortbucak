@@ -54,19 +54,19 @@ export default function HomeSlider({ slides }) {
     <section
       aria-label="Tanıtım"
       aria-roledescription="carousel"
-      className="relative isolate overflow-hidden bg-camgece text-fildisi"
+      className="relative isolate overflow-hidden bg-camgece text-fildisi [contain:paint]"
     >
-      <div className="overflow-hidden" ref={emblaRef}>
-        <div className="flex">
+      <div className="w-full overflow-hidden" ref={emblaRef}>
+        <div className="flex touch-pan-y">
           {slides.map((s, i) => (
             <div
               key={s.id}
-              className="relative min-w-0 flex-[0_0_100%]"
+              className="relative min-w-0 flex-[0_0_100%] overflow-hidden"
               role="group"
               aria-roledescription="slide"
               aria-label={`${slaytAdi(s)}, ${i + 1} / ${slides.length}`}
             >
-              <div className="absolute inset-0 overflow-hidden">
+              <div className="absolute inset-0 overflow-hidden [contain:paint]">
                 <picture>
                   <source media="(min-width: 768px)" srcSet={s.image_desktop} />
                   <img
@@ -87,17 +87,17 @@ export default function HomeSlider({ slides }) {
               <div className="pointer-events-none absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-camgece to-transparent" aria-hidden />
               <div className="desen pointer-events-none absolute inset-y-0 left-0 hidden w-1/2 opacity-60 [mask-image:linear-gradient(90deg,#000,transparent)] md:block" aria-hidden />
 
-              <div className="site-container relative flex min-h-[38rem] flex-col justify-center pb-40 pt-20 sm:min-h-[42rem] lg:min-h-[calc(100svh-5.25rem-2.5rem)] lg:max-h-[56rem] lg:pb-44">
+              <div className="site-container relative flex min-h-[30rem] flex-col justify-end pb-48 pt-10 sm:min-h-[34rem] md:min-h-[40rem] md:justify-center md:pb-44 md:pt-16 lg:min-h-[calc(100svh-7rem)] lg:max-h-[52rem] lg:pb-40">
                 {aktif === i && (
                   /* Belirme CSS ile yapılır; JS beklenmez. key slayt değişince
                      animasyonu baştan çalıştırır. */
-                  <div key={`${s.id}-${aktif}`} className="relative max-w-2xl text-center md:text-left">
+                  <div key={`${s.id}-${aktif}`} className="relative w-full min-w-0 max-w-2xl text-center md:text-left">
                     {s.kicker && (
-                      <p className="slider-kicker kicker-acik animate-belir !text-[#E7D3A8]">{s.kicker}</p>
+                      <p className="slider-kicker kicker-acik animate-belir !text-kirmizi">{s.kicker}</p>
                     )}
 
                     <h1
-                      className="slider-baslik mt-6 animate-belir text-balance font-display text-[2.4rem] leading-[1.08] sm:text-[3.1rem] md:text-[3.6rem] lg:text-[4.25rem]"
+                      className="slider-baslik mx-auto mt-3 max-w-[16.5rem] animate-belir text-balance font-display text-[1.85rem] leading-[1.12] sm:max-w-md sm:text-[2.35rem] md:mx-0 md:mt-6 md:max-w-full md:text-[3.6rem] lg:text-[4.25rem]"
                       style={{ animationDelay: "120ms" }}
                     >
                       {s.title}
@@ -105,7 +105,7 @@ export default function HomeSlider({ slides }) {
 
                     {s.description && (
                       <p
-                        className="slider-aciklama mx-auto mt-6 max-w-xl animate-belir text-base leading-relaxed sm:text-lg md:mx-0"
+                        className="slider-aciklama mx-auto mt-6 hidden w-full max-w-xl animate-belir text-base leading-relaxed md:block md:text-lg md:mx-0"
                         style={{ animationDelay: "240ms" }}
                       >
                         {s.description}
@@ -113,11 +113,11 @@ export default function HomeSlider({ slides }) {
                     )}
 
                     <div
-                      className="mt-9 flex animate-belir flex-wrap justify-center gap-3 md:justify-start"
+                      className="mt-6 flex w-full min-w-0 animate-belir flex-wrap justify-center gap-3 md:mt-9 md:justify-start"
                       style={{ animationDelay: "360ms" }}
                     >
                       {s.button_text && s.button_link && (
-                        <Link href={s.button_link} className="btn-altin group">
+                        <Link href={s.button_link} className="btn-altin group !px-6 !py-3 text-sm md:!px-7 md:!py-3.5 md:text-[0.95rem]">
                           {s.button_text}
                           <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" aria-hidden />
                         </Link>
@@ -126,7 +126,7 @@ export default function HomeSlider({ slides }) {
                         href={waLink("Merhaba, hac ve umre programlarınız hakkında bilgi almak istiyorum.")}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="btn-cam-uzeri"
+                        className="btn-cam-uzeri hidden md:inline-flex"
                       >
                         <WaIcon className="h-4 w-4" /> Danışmana Sorun
                       </a>
@@ -140,10 +140,10 @@ export default function HomeSlider({ slides }) {
       </div>
 
       {!tekSlayt && (
-        <div className="pointer-events-none absolute inset-x-0 bottom-28 z-20 sm:bottom-32">
+        <div className="pointer-events-none absolute inset-x-0 bottom-28 z-20 md:bottom-32">
           <div className="site-container flex items-end justify-between gap-6">
             {/* Bölümlü ilerleme göstergesi */}
-            <div className="pointer-events-auto flex w-full max-w-xl items-end gap-2 sm:gap-4">
+            <div className="pointer-events-auto flex w-full max-w-xl items-end gap-3 md:gap-4">
               {slides.map((s, k) => {
                 const ad = slaytAdi(s);
                 return (
@@ -152,10 +152,10 @@ export default function HomeSlider({ slides }) {
                   onClick={() => git(k)}
                   aria-label={`${ad} görseline geç`}
                   aria-current={k === aktif}
-                  className="group min-w-0 flex-1 py-3 text-left"
+                  className="group min-w-0 flex-1 py-2 text-center md:py-3 md:text-left"
                 >
                   <span
-                    className={`mb-2 block truncate font-display text-[0.95rem] transition-colors sm:text-lg ${
+                    className={`mb-1.5 block truncate font-display text-[0.8rem] transition-colors md:mb-2 md:text-lg ${
                       k === aktif ? "text-altinparlak" : "text-fildisi/45 group-hover:text-fildisi/80"
                     }`}
                   >
@@ -203,12 +203,12 @@ function OkDugme({ yon, onClick }) {
 
 function slaytAdi(s) {
   const link = String(s.button_link || "").toLocaleLowerCase("tr-TR");
-  if (link.includes("kisiye-ozel")) return "Kişisel";
+  if (link.includes("kisiye-ozel")) return "Özel";
   if (link.includes("kultur")) return "Kültür";
   if (link.includes("umre")) return "Umre";
   if (link.includes("hac")) return "Hac";
   const metin = `${s.title || ""} ${s.kicker || ""} ${s.description || ""}`.toLocaleLowerCase("tr-TR");
-  if (metin.includes("kişisel") || metin.includes("kisiye")) return "Kişisel";
+  if (metin.includes("kişisel") || metin.includes("kisiye") || metin.includes("özel")) return "Özel";
   if (metin.includes("kültür") || metin.includes("kultur")) return "Kültür";
   if (metin.includes("umre")) return "Umre";
   if (metin.includes("hac")) return "Hac";

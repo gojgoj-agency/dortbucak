@@ -3,7 +3,6 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import {
   BedDouble,
-  CalendarDays,
   Check,
   ChevronRight,
   Clock,
@@ -143,12 +142,8 @@ export default async function PackageDetail({ params }) {
   };
 
   const ozet = [
-    ...(p.start_date
-      ? [
-          { icon: PlaneTakeoff, etiket: "Gidiş", deger: formatDate(p.start_date) || "—" },
-          { icon: PlaneLanding, etiket: "Dönüş", deger: formatDate(p.end_date) || "—" },
-        ]
-      : [{ icon: CalendarDays, etiket: "Dönem", deger: p.label || "Tarih için sorun" }]),
+    { icon: PlaneTakeoff, etiket: "Gidiş", deger: formatDate(p.start_date) || "Tarih için sorun" },
+    { icon: PlaneLanding, etiket: "Dönüş", deger: formatDate(p.end_date) || "Tarih için sorun" },
     {
       icon: Clock,
       etiket: "Süre",
@@ -451,6 +446,7 @@ export default async function PackageDetail({ params }) {
         </section>
       )}
 
+      {/* Kayıt — Bu program hakkında konuşalım
       <section className="site-container mt-16 mb-16" aria-labelledby="paket-cagri">
         <div className="doku relative overflow-hidden rounded-[2rem] bg-camgece px-7 py-16 text-center text-fildisi shadow-derin">
           <div className="relative">
@@ -473,6 +469,7 @@ export default async function PackageDetail({ params }) {
           </div>
         </div>
       </section>
+      */}
 
       <div className="fixed inset-x-0 bottom-0 z-40 border-t border-cizgi bg-kagit/95 px-4 py-3 shadow-kartust backdrop-blur-md lg:hidden">
         <div className="flex items-center gap-3">

@@ -25,7 +25,8 @@ export default function Page() {
       <PackageListPage
         category="umre"
         title="Umre Turları"
-        intro="14 günlük umre programlarımızın dönem fiyatları 4 kişilik odada kişi başıdır.Size uygun dönemi birlikte belirlemek için bize ulaşın."
+        kicker="Gönüllere Şifa"
+        intro="Size uygun programı listeden inceleyerek bize ulaşın."
       />
     </>
   );

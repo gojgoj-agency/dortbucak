@@ -2,7 +2,9 @@
 import { useFormState, useFormStatus } from "react-dom";
 
 const ikonlar = [
+  ["ShieldCheck", "Güven"],
   ["Heart", "Kalp"],
+  ["Compass", "Rehber"],
   ["BookOpen", "Kitap"],
   ["ClipboardCheck", "Liste"],
   ["Headphones", "Destek"],

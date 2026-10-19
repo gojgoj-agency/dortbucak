@@ -6,7 +6,7 @@ export default function Page() {
   return (
     <div>
       <PageHead
-        back={{ href: "/admin/kisiye-ozel", label: "Kişiye özel sayfasına dön" }}
+        back={{ href: "/admin/kisiye-ozel", label: "Özel Turlar sayfasına dön" }}
         kicker="Yeni kayıt"
         title="Yeni kart"
         description="Kişiye özel turlar sayfasında görünecek kısa maddeyi ekleyin."

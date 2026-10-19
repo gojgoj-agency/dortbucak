@@ -8,7 +8,9 @@ import { deletePrincipleAction, togglePrincipleAction, movePrincipleAction } fro
 export const dynamic = "force-dynamic";
 
 const ikonAd = {
+  ShieldCheck: "Güven",
   Heart: "Kalp",
+  Compass: "Rehber",
   BookOpen: "Kitap",
   ClipboardCheck: "Liste",
   Headphones: "Destek",

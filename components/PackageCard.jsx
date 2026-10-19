@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowUpRight, CalendarDays, Check, MoonStar } from "lucide-react";
+import { ArrowUpRight, Check, MoonStar, PlaneLanding, PlaneTakeoff } from "lucide-react";
 import { formatDate, formatPrice, hamGorsel, kategoriBilgi, waLink } from "@/lib/site";
 import { parseJson } from "@/lib/json";
 import { WaIcon } from "./SocialLinks";
@@ -15,9 +15,8 @@ export default function PackageCard({ p, oncelikli = false }) {
   const href = `/paket/${p.slug}`;
   const etiket = kategoriBilgi(p.category).etiket;
 
-  const tarih = p.start_date
-    ? `${formatDate(p.start_date)} – ${formatDate(p.end_date)}`
-    : p.label || "Tarih için iletişime geçin";
+  const gidis = formatDate(p.start_date);
+  const donus = formatDate(p.end_date);
 
   return (
     <article className="grup-yakinlas group relative flex w-full flex-col overflow-hidden rounded-[1.5rem] border border-cizgi bg-kagit shadow-kart transition-all duration-500 ease-yumusak hover:-translate-y-2 hover:border-altinacik/60 hover:shadow-kartust">
@@ -59,8 +58,10 @@ export default function PackageCard({ p, oncelikli = false }) {
               {p.days} gün · {p.nights} gece
             </p>
           ) : <span />}
-          {p.label && (
-            <span className="rounded-full bg-white/90 px-3 py-0.5 text-xs font-semibold text-cam">{p.label}</span>
+          {(gidis || donus || p.label) && (
+            <span className="max-w-[58%] rounded-full bg-white/90 px-3 py-0.5 text-right text-xs font-semibold leading-snug text-cam">
+              {gidis && donus ? `${gidis} – ${donus}` : gidis || donus || p.label}
+            </span>
           )}
         </div>
       </div>
@@ -73,10 +74,22 @@ export default function PackageCard({ p, oncelikli = false }) {
           </Link>
         </h3>
 
-        <p className="mt-2 flex items-center gap-2 text-sm text-gri">
-          <CalendarDays className="h-4 w-4 shrink-0 text-altin" aria-hidden />
-          {tarih}
-        </p>
+        <dl className="mt-3 grid grid-cols-2 gap-2">
+          <div className="rounded-xl border border-cizgi bg-fildisi/80 px-3 py-2.5">
+            <dt className="flex items-center gap-1.5 text-[0.62rem] font-bold uppercase tracking-[0.16em] text-altin">
+              <PlaneTakeoff className="h-3.5 w-3.5" aria-hidden />
+              Gidiş
+            </dt>
+            <dd className="mt-1 text-sm font-semibold leading-snug text-cam">{gidis || "Tarih için sorun"}</dd>
+          </div>
+          <div className="rounded-xl border border-cizgi bg-fildisi/80 px-3 py-2.5">
+            <dt className="flex items-center gap-1.5 text-[0.62rem] font-bold uppercase tracking-[0.16em] text-altin">
+              <PlaneLanding className="h-3.5 w-3.5" aria-hidden />
+              Dönüş
+            </dt>
+            <dd className="mt-1 text-sm font-semibold leading-snug text-cam">{donus || "Tarih için sorun"}</dd>
+          </div>
+        </dl>
 
         {(p.mecca_nights > 0 || p.medina_nights > 0) && (
           <dl className="mt-5 grid grid-cols-2 overflow-hidden rounded-xl border border-cizgi bg-fildisi/70 text-center">

@@ -12,7 +12,7 @@ export default async function Page({ params }) {
   return (
     <div>
       <PageHead
-        back={{ href: "/admin/kisiye-ozel", label: "Kişiye özel sayfasına dön" }}
+        back={{ href: "/admin/kisiye-ozel", label: "Özel Turlar sayfasına dön" }}
         kicker="Düzenle"
         title={kayit.title}
         description="Kayıt, kişiye özel turlar sayfasını hemen günceller."

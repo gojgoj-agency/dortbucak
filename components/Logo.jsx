@@ -1,10 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 
+// logo.png kare ve şeffaf; işaret yatay bir şerit. Kutuyu bu şeride göre kırpıyoruz.
 const olculer = {
-  kucuk: "h-[4.5rem] w-[6.0rem]",
-  orta: "h-[4.5rem] w-[6.5rem]",
-  buyuk: "h-[6rem] w-[8.5rem]",
+  kucuk: "h-8 w-[6.7rem]",
+  orta: "h-10 w-[8.4rem]",
+  buyuk: "h-14 w-[11.75rem]",
 };
 
 export default function Logo({ className = "", boyut = "orta" }) {
@@ -14,15 +15,17 @@ export default function Logo({ className = "", boyut = "orta" }) {
       aria-label="Dört Bucak Tur ana sayfa"
       className={`inline-flex shrink-0 items-center ${className}`}
     >
-      <Image
-        src="/images/logo.webp"
-        alt="Dört Bucak Tur"
-        width={1600}
-        height={1600}
-        priority={boyut !== "buyuk"}
-        sizes="240px"
-        className={`${olculer[boyut] || olculer.orta} rounded-xl bg-white object-contain`}
-      />
+      <span className={`relative block overflow-hidden ${olculer[boyut] || olculer.orta}`}>
+        <Image
+          src="/images/logo.png"
+          alt=""
+          width={500}
+          height={500}
+          priority={boyut !== "buyuk"}
+          sizes="200px"
+          className="pointer-events-none absolute left-1/2 top-1/2 h-[415%] w-auto max-w-none -translate-x-1/2 -translate-y-1/2"
+        />
+      </span>
     </Link>
   );
 }

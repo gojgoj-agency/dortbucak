@@ -263,10 +263,14 @@ export default function PackageForm({ pkg, action }) {
         <Upload name="pdf_file" label="Program dosyası (PDF)" value={p.pdf_file} accept="application/pdf" />
       </Bolum>
 
-      <Bolum baslik="Tarih ve süre" aciklama="Kartlarda ve paket sayfasında tarih ile gece dağılımı olarak görünür.">
+      <Bolum baslik="Tarih ve süre" aciklama="Gidiş ve dönüş tarihi kartta, paket sayfasında ve listelerde görünür.">
         <div className="grid items-start gap-5 sm:grid-cols-2 xl:grid-cols-3">
-          <Alan label="Başlangıç tarihi"><input type="date" name="start_date" defaultValue={p.start_date || ""} className={inp} /></Alan>
-          <Alan label="Bitiş tarihi"><input type="date" name="end_date" defaultValue={p.end_date || ""} className={inp} /></Alan>
+          <Alan label="Gidiş tarihi" hint="Paket kartındaki takvim satırında “Gidiş” olarak görünür.">
+            <input type="date" name="start_date" defaultValue={p.start_date || ""} className={inp} />
+          </Alan>
+          <Alan label="Dönüş tarihi" hint="Paket kartındaki takvim satırında “Dönüş” olarak görünür.">
+            <input type="date" name="end_date" defaultValue={p.end_date || ""} className={inp} />
+          </Alan>
           <Alan label="Gece sayısı"><input type="number" min="0" name="nights" defaultValue={p.nights ?? ""} className={inp} /></Alan>
           <Alan label="Gün sayısı"><input type="number" min="0" name="days" defaultValue={p.days ?? ""} className={inp} /></Alan>
           <Alan label="Mekke gece sayısı"><input type="number" min="0" name="mecca_nights" defaultValue={p.mecca_nights ?? ""} className={inp} /></Alan>

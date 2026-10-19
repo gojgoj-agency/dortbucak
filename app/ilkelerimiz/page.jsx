@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, BookOpen, ClipboardCheck, Headphones, Heart, Users } from "lucide-react";
+import { ArrowRight, BookOpen, ClipboardCheck, Compass, Headphones, Heart, ShieldCheck, Users } from "lucide-react";
 import SayfaKapak from "@/components/SayfaKapak";
 import JsonLd from "@/components/JsonLd";
 import Reveal from "@/components/Reveal";
@@ -11,11 +11,11 @@ import { breadcrumbLd, sayfaMeta } from "@/lib/seo";
 export const metadata = sayfaMeta({
   title: "İlkelerimiz",
   description:
-    "Dört Bucak Tur ilkeleri: manevi hassasiyet, doğru rehberlik, titiz organizasyon, kesintisiz destek ve misafir memnuniyeti.",
+    "Dört Bucak Tur ilkeleri: güven ve şeffaflık, manevi hassasiyet, doğru rehberlik, titiz organizasyon, kesintisiz destek ve misafir memnuniyeti.",
   path: "/ilkelerimiz",
 });
 
-const ikonlar = { Heart, BookOpen, ClipboardCheck, Headphones, Users };
+const ikonlar = { ShieldCheck, Heart, Compass, BookOpen, ClipboardCheck, Headphones, Users };
 
 export const dynamic = "force-dynamic";
 

@@ -28,7 +28,7 @@ export default async function AdminCustomTours({ searchParams }) {
     <div>
       <PageHead
         kicker="İçerik"
-        title="Kişiye özel turlar"
+        title="Özel Turlar"
         description="Sayfa metni, fotoğraflar ve alttaki kartlar. Sıra, sitedeki gösterim sırasıdır."
       />
       {searchParams?.kayit === "sayfa" ? <Flash>Sayfa metni kaydedildi.</Flash> : null}

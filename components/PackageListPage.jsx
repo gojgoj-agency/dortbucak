@@ -1,10 +1,7 @@
-import { Phone } from "lucide-react";
 import PackageFilters from "@/components/PackageFilters";
 import Reveal from "@/components/Reveal";
 import SayfaKapak from "@/components/SayfaKapak";
-import { WaIcon } from "@/components/SocialLinks";
 import { getPackages } from "@/lib/db";
-import { site, telLink, waLink } from "@/lib/site";
 
 // Kategoriye göre başlık bandı görseli. Tam genişlik kapladıkları için
 // geniş (2000px) slider görselleri kullanılır; kart görselleri esnerdi.
@@ -14,7 +11,7 @@ const bandGorseli = {
   kultur: "/images/kultur-manzara.webp",
 };
 
-export default async function PackageListPage({ category, title, intro }) {
+export default async function PackageListPage({ category, title, intro, kicker = "Programlarımız" }) {
   const packages = await getPackages({ category });
   const gorsel = bandGorseli[category] || bandGorseli.umre;
   const kelimeler = title.split(" ");
@@ -22,7 +19,7 @@ export default async function PackageListPage({ category, title, intro }) {
 
   return (
     <>
-      <SayfaKapak kicker="Programlarımız" baslik={kelimeler.join(" ")} vurgu={vurgu} aciklama={intro} gorsel={gorsel} />
+      <SayfaKapak kicker={kicker} baslik={kelimeler.join(" ")} vurgu={vurgu} aciklama={intro} gorsel={gorsel} />
 
       <div className="site-container py-16 md:py-20">
         {packages.length === 0 ? (
@@ -35,6 +32,7 @@ export default async function PackageListPage({ category, title, intro }) {
           </Reveal>
         )}
 
+        {/* Kişiye özel bilgi — Size uygun programı birlikte seçelim
         <Reveal className="mt-16">
           <div className="relative overflow-hidden rounded-[1.75rem] bg-cam px-7 py-10 text-fildisi shadow-derin md:px-12">
             <div className="desen pointer-events-none absolute inset-0 opacity-70" aria-hidden />
@@ -60,6 +58,7 @@ export default async function PackageListPage({ category, title, intro }) {
             </div>
           </div>
         </Reveal>
+        */}
       </div>
     </>
   );

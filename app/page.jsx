@@ -76,10 +76,10 @@ const kategoriler = [
   {
     href: "/kisiye-ozel-turlar",
     kicker: "Size göre",
-    baslik: "Kişiye Özel Turlar",
+    baslik: "Özel Turlar",
     metin: "Tarih, süre ve güzergâhı birlikte belirlediğimiz programlar.",
     gorsel: "/images/paket-umre-3.webp",
-    alt: "Kişiye özel tur planı",
+    alt: "Özel tur planı",
   },
 ];
 
@@ -212,7 +212,7 @@ export default async function Home() {
               <span className="italic text-altin">Her Anlamda Huzur</span>
             </h2>
             <p className="mt-6 text-[1.05rem] leading-relaxed text-gri">
-              Ankara’daki ofisimizden hac, umre, kültür ve kişiye özel yolculuklarınızı planlıyoruz. Programlarımızda
+              Ankara’daki ofisimizden hac, umre, kültür ve özel turlarınızı planlıyoruz. Programlarımızda
               din görevlisi ve rehber eşliğinde hareket edilir; ibadetler bilerek, topluca ve usulüne uygun
               biçimde yerine getirilir.
             </p>
@@ -340,8 +340,8 @@ export default async function Home() {
                 />
                 <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-camgece via-camgece/45 to-transparent" aria-hidden />
                 <div className="pointer-events-none absolute inset-4 rounded-[1.5rem] border border-white/15 transition-colors duration-500 group-hover:border-altinacik/50" aria-hidden />
-                <div className="relative flex w-full items-end justify-between gap-6 p-9 md:p-11">
-                  <div>
+                <div className="relative flex w-full min-w-0 items-end justify-between gap-4 p-6 sm:gap-6 sm:p-9 md:p-11">
+                  <div className="min-w-0">
                     <p className="kicker-acik">{k.kicker}</p>
                     <h2 className="mt-3 text-3xl !text-fildisi md:text-4xl">{k.baslik}</h2>
                     <p className="mt-3 max-w-sm text-fildisi/75">{k.metin}</p>
@@ -359,7 +359,7 @@ export default async function Home() {
       {/* Öne çıkan programlar */}
       {featured.length > 0 && (
         <section className="site-container pt-24 md:pt-28" aria-labelledby="one-cikan">
-          <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
+          <div className="flex flex-col items-start justify-between gap-6 lg:flex-row lg:items-end">
             <BolumBasligi
               id="one-cikan"
               kicker="Programlarımız"
@@ -368,11 +368,11 @@ export default async function Home() {
               aciklama="Tarih, süre ve konaklama planlarıyla hazırladığımız programlardan bir seçki."
               hizali="sol"
             />
-            <Reveal className="flex shrink-0 gap-3">
+            <Reveal className="flex w-full min-w-0 flex-wrap gap-3 lg:w-auto">
               <Link href="/umre-turlari" className="btn-cerceve !px-5 !py-2.5 text-sm">Umre turları</Link>
               <Link href="/hac-turlari" className="btn-cerceve !px-5 !py-2.5 text-sm">Hac programları</Link>
               <Link href="/kultur-turlari" className="btn-cerceve !px-5 !py-2.5 text-sm">Kültür turları</Link>
-              <Link href="/kisiye-ozel-turlar" className="btn-cerceve !px-5 !py-2.5 text-sm">Kişiye özel</Link>
+              <Link href="/kisiye-ozel-turlar" className="btn-cerceve !px-5 !py-2.5 text-sm">Özel Turlar</Link>
             </Reveal>
           </div>
           <RevealGrup className="mt-12 grid gap-7 sm:grid-cols-2 lg:grid-cols-3" aralik={0.09}>

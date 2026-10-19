@@ -25,7 +25,8 @@ export default function Page() {
       <PackageListPage
         category="hac"
         title="Hac Programları"
-        intro="Ankara ofisimizden düzenlenen hac programlarında Mekke ve Medine konaklamasını, tarihleri ve kayıt şartlarını inceleyebilirsiniz. Hac kayıtları resmî mevzuata tabidir."
+        kicker="Huzur'a Davet"
+        intro="Hac programlarında Mekke ve Medine konaklamasını, tarihleri ve kayıt şartlarını inceleyebilirsiniz.."
       />
     </>
   );

@@ -54,7 +54,9 @@ const kategoriler = [
     kicker: "Yıl boyu",
     baslik: "Umre Turları",
     metin: "14 günlük, rehberli umre programlarımıza ve dönem fiyatlarına göz atın.",
-    gorsel: "/images/paket-umre-2.webp",
+    gorsel: "/images/hac.jpg",
+    konum: "object-[78%_center]",
+    kadraj: "origin-[78%_8%] scale-[1.85]",
     alt: "Mekke ve Medine umre programı",
   },
   {
@@ -62,7 +64,9 @@ const kategoriler = [
     kicker: "Ömürde bir kez",
     baslik: "Hac Programları",
     metin: "Hac programlarımızı, tarihlerini ve Mekke–Medine konaklama planlarını inceleyin.",
-    gorsel: "/images/paket-hac-1.webp",
+    gorsel: "/images/hac.jpg",
+    konum: "object-[24%_center]",
+    kadraj: "origin-[24%_8%] scale-[1.85]",
     alt: "Mekke ve Medine hac programı",
   },
   {
@@ -70,7 +74,7 @@ const kategoriler = [
     kicker: "Tarihe ve doğaya",
     baslik: "Kültür Turları",
     metin: "Tarihi keşif, doğayla iç içe rotalar ve kültürel deneyimle hazırlanan yolculuklar.",
-    gorsel: "/images/paket-umre-3.webp",
+    gorsel: "/images/kultur.jpg",
     alt: "Kültür turları: tarihe ve doğaya yolculuk",
   },
   {
@@ -78,7 +82,7 @@ const kategoriler = [
     kicker: "Size göre",
     baslik: "Özel Turlar",
     metin: "Tarih, süre ve güzergâhı birlikte belirlediğimiz programlar.",
-    gorsel: "/images/paket-umre-3.webp",
+    gorsel: "/images/ozeltur.webp",
     alt: "Özel tur planı",
   },
 ];
@@ -331,13 +335,15 @@ export default async function Home() {
                 href={k.href}
                 className="grup-yakinlas group relative flex h-[24rem] items-end overflow-hidden rounded-[2rem] shadow-kartust md:h-[28rem]"
               >
-                <Image
-                  src={k.gorsel}
-                  alt={k.alt}
-                  fill
-                  sizes="(max-width: 768px) 92vw, 600px"
-                  className={`gorsel-yakinlas object-cover ${k.konum || ""}`}
-                />
+                <div className={`absolute inset-0 ${k.kadraj || ""}`}>
+                  <Image
+                    src={k.gorsel}
+                    alt={k.alt}
+                    fill
+                    sizes="(max-width: 768px) 92vw, 600px"
+                    className={`gorsel-yakinlas object-cover ${k.konum || ""}`}
+                  />
+                </div>
                 <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-camgece via-camgece/45 to-transparent" aria-hidden />
                 <div className="pointer-events-none absolute inset-4 rounded-[1.5rem] border border-white/15 transition-colors duration-500 group-hover:border-altinacik/50" aria-hidden />
                 <div className="relative flex w-full min-w-0 items-end justify-between gap-4 p-6 sm:gap-6 sm:p-9 md:p-11">

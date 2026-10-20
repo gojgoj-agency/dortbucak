@@ -18,7 +18,7 @@ export const metadata = sayfaMeta({
 
 const ikonlar = { CalendarRange, Users, Route, Hotel, Compass, MapPin, Heart, Phone };
 const varsayilanKapak = "/images/slider-2-masaustu.webp";
-const varsayilanYan = "/images/paket-umre-3.webp";
+const varsayilanYan = "/images/ozeltur.webp";
 const wa = waLink("Merhaba, özel bir tur planlamak istiyorum.");
 
 export const dynamic = "force-dynamic";
@@ -27,7 +27,7 @@ export default async function Page() {
   const sayfa = await getCustomPage();
   const kartlar = await getCustomPoints(true);
   const kapak = sayfa.cover_image || varsayilanKapak;
-  const yan = sayfa.side_image || varsayilanYan;
+  const yan = !sayfa.side_image || sayfa.side_image === "/images/paket-umre-3.webp" ? varsayilanYan : sayfa.side_image;
   return (
     <>
       <JsonLd
@@ -52,7 +52,7 @@ export default async function Page() {
         <div className="grid items-center gap-14 lg:grid-cols-2 lg:gap-20">
           <Reveal yon="sol">
             <div className="relative mx-auto max-w-md">
-              <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] shadow-derin">
+              <div className="relative aspect-[4/3] overflow-hidden rounded-[2rem] shadow-derin">
                 <Image
                   src={yan}
                   alt="Özel tur planından bir görünüm"

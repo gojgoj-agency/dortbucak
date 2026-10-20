@@ -17,18 +17,19 @@ export default function PackageCard({ p, oncelikli = false }) {
 
   const gidis = formatDate(p.start_date);
   const donus = formatDate(p.end_date);
+  const kapak = p.category === "hac" || p.category === "umre" ? "/images/hac.jpg" : p.cover_image;
 
   return (
     <article className="grup-yakinlas group relative flex w-full flex-col overflow-hidden rounded-[1.5rem] border border-cizgi bg-kagit shadow-kart transition-all duration-500 ease-yumusak hover:-translate-y-2 hover:border-altinacik/60 hover:shadow-kartust">
       {/* Görsel */}
       <div className="relative aspect-[4/3] overflow-hidden bg-camderin">
-        {p.cover_image && (
+        {kapak && (
           <Image
-            src={p.cover_image}
+            src={kapak}
             alt={p.name}
             fill
             priority={oncelikli}
-            unoptimized={hamGorsel(p.cover_image)}
+            unoptimized={hamGorsel(kapak)}
             sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 400px"
             className="gorsel-yakinlas object-cover"
           />

@@ -84,7 +84,7 @@ export default function HomeSlider({ slides }) {
 
               <div className="perde md:hidden" aria-hidden />
               <div className="pointer-events-none absolute inset-0 hidden bg-hero-yan md:block" aria-hidden />
-              <div className="pointer-events-none absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-camgece to-transparent" aria-hidden />
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 h-72 bg-gradient-to-t from-camgece via-camgece/80 to-transparent md:h-80" aria-hidden />
               <div className="desen pointer-events-none absolute inset-y-0 left-0 hidden w-1/2 opacity-60 [mask-image:linear-gradient(90deg,#000,transparent)] md:block" aria-hidden />
 
               <div className="site-container relative flex min-h-[30rem] flex-col justify-end pb-48 pt-10 sm:min-h-[34rem] md:min-h-[40rem] md:justify-center md:pb-44 md:pt-16 lg:min-h-[calc(100svh-7rem)] lg:max-h-[52rem] lg:pb-40">
@@ -155,13 +155,13 @@ export default function HomeSlider({ slides }) {
                   className="group min-w-0 flex-1 py-2 text-center md:py-3 md:text-left"
                 >
                   <span
-                    className={`mb-1.5 block truncate font-display text-[0.8rem] transition-colors md:mb-2 md:text-lg ${
-                      k === aktif ? "text-altinparlak" : "text-fildisi/45 group-hover:text-fildisi/80"
+                    className={`slider-sekme mb-2 block truncate font-display text-base leading-none transition-colors md:mb-2.5 md:text-[1.35rem] ${
+                      k === aktif ? "!text-kirmizi" : "group-hover:!text-white"
                     }`}
                   >
                     {ad}
                   </span>
-                  <span className="relative block h-px w-full overflow-hidden bg-white/20">
+                  <span className="relative block h-0.5 w-full overflow-hidden rounded-full bg-white/45">
                     {k === aktif && (
                       <span
                         key={`${aktif}-${tur}`}

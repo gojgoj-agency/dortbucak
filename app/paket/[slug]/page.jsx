@@ -11,15 +11,13 @@ import {
   Hotel,
   Landmark,
   Minus,
-  MoonStar,
-  Phone,
   PlaneLanding,
   PlaneTakeoff,
   Sparkle,
   Users,
 } from "lucide-react";
 import { getPackageBySlug, getPackages, parseJson } from "@/lib/db";
-import { formatDate, formatPrice, hamGorsel, kategoriBilgi, waLink, telLink, site } from "@/lib/site";
+import { formatDate, formatPrice, hamGorsel, kategoriBilgi, waLink } from "@/lib/site";
 import JsonLd from "@/components/JsonLd";
 import { abs, agencyId, breadcrumbLd, sayfaMeta } from "@/lib/seo";
 import { WaIcon } from "@/components/Header";
@@ -222,8 +220,7 @@ export default async function PackageDetail({ params }) {
           ))}
         </dl>
 
-        <div className="mt-10 grid items-start gap-8 lg:grid-cols-[minmax(0,1fr)_21.5rem]">
-          <div className="order-2 space-y-8 lg:order-1">
+        <div className="mt-10 space-y-8">
             {highlights.length > 0 && (
               <ul className="grid gap-3 sm:grid-cols-3">
                 {highlights.map((h, i) => (
@@ -370,6 +367,12 @@ export default async function PackageDetail({ params }) {
               </section>
             )}
 
+            {p.pdf_file && (
+              <a href={p.pdf_file} target="_blank" rel="noopener" className="btn-cerceve">
+                <Download className="h-4 w-4" aria-hidden /> Program dosyası (PDF)
+              </a>
+            )}
+
             {gallery.length > 0 && (
               <Bolum kicker="Görseller" title="Programdan kareler">
                 <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
@@ -381,55 +384,6 @@ export default async function PackageDetail({ params }) {
                 </div>
               </Bolum>
             )}
-          </div>
-
-          <aside className="order-1 lg:sticky lg:top-28 lg:order-2">
-            <div className="overflow-hidden rounded-3xl border border-cizgi bg-kagit shadow-kartust">
-              <div className="doku relative overflow-hidden bg-camderin px-6 py-6 text-fildisi">
-                <div className="relative">
-                  <p className="kicker-acik">{from ? "Kişi başı başlangıç" : "Fiyat"}</p>
-                  <p className="mt-2 font-display text-4xl leading-none !text-fildisi">
-                    {from ? from.text : "Bilgi alın"}
-                  </p>
-                  <p className="mt-2 text-sm text-fildisi/75">
-                    {from ? `${from.label} üzerinden` : "Güncel fiyat için bize yazın"}
-                  </p>
-                </div>
-              </div>
-
-              <div className="space-y-4 p-6">
-                {priced.length > 0 && (
-                  <ul className="space-y-2.5">
-                    {rooms.map((room) => (
-                      <li key={room.label} className="flex items-baseline justify-between gap-3 border-b border-cizgi/80 pb-2.5 text-sm last:border-0 last:pb-0">
-                        <span className="text-gri">{room.label}</span>
-                        <span className="font-display text-lg text-cam">{room.text || "Sorunuz"}</span>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-
-                <div className="flex items-center gap-2 text-sm text-cam">
-                  <MoonStar className="h-4 w-4 shrink-0 text-altin" aria-hidden />
-                  <span>{p.nights} gece · {p.days} gün</span>
-                </div>
-
-                <div className="flex flex-col gap-2.5 pt-1">
-                  <a href={waLink(waMsg)} target="_blank" rel="noopener" className="btn-altin w-full">
-                    <WaIcon /> WhatsApp&apos;tan Bilgi Al
-                  </a>
-                  <a href={telLink()} className="btn-cerceve w-full">
-                    <Phone className="h-4 w-4" aria-hidden /> Telefonla arayın
-                  </a>
-                  {p.pdf_file && (
-                    <a href={p.pdf_file} target="_blank" rel="noopener" className="btn-cerceve w-full">
-                      <Download className="h-4 w-4" aria-hidden /> Program dosyası (PDF)
-                    </a>
-                  )}
-                </div>
-              </div>
-            </div>
-          </aside>
         </div>
       </div>
 

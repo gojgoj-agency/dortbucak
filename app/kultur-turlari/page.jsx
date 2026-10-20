@@ -17,6 +17,7 @@ export const metadata = sayfaMeta({
   description:
     "Dört Bucak Tur kültür turları: tarihe ve doğaya yolculuk. Tarihi keşif, doğa ile iç içe rotalar, kültürel deneyim ve eşsiz güzergâhlar.",
   path: "/kultur-turlari",
+  images: ["/images/kultur.jpg"],
 });
 
 const basliklar = [
@@ -46,19 +47,19 @@ export default async function Page() {
         baslik="Kültür"
         vurgu="Turları"
         aciklama="Tarihi keşif, doğayla iç içe duraklar, kültürel deneyim ve eşsiz rotalar. Programı birlikte seçmek için bize ulaşın."
-        gorsel="/images/paket-umre-3.webp"
+        gorsel="/images/kultur.jpg"
       />
 
       <section className="site-container py-24 md:py-28" aria-labelledby="kultur-basliklar">
         <div className="grid items-center gap-14 lg:grid-cols-2 lg:gap-20">
           <Reveal yon="sol">
-            <div className="relative mx-auto max-w-md">
-              <div className="relative aspect-[3/4] overflow-hidden rounded-[2rem] shadow-derin">
+            <div className="relative">
+              <div className="relative aspect-[16/9] overflow-hidden rounded-[2rem] shadow-derin">
                 <Image
-                  src="/images/paket-umre-3.webp"
+                  src="/images/kultur.jpg"
                   alt="Kültür turları: tarihe ve doğaya yolculuk"
                   fill
-                  sizes="(max-width: 1024px) 90vw, 440px"
+                  sizes="(max-width: 1024px) 90vw, 560px"
                   className="object-cover"
                 />
               </div>
